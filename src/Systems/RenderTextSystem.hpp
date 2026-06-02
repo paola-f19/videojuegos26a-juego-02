@@ -1,0 +1,91 @@
+#ifndef RENDERTEXTSYSTEM_HPP
+#define RENDERTEXTSYSTEM_HPP
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+
+#include <memory>
+
+#include "../AssetManager/AssetManager.hpp"
+#include "../Components/PauseMenuComponent.hpp"
+#include "../Components/TextComponent.hpp"
+#include "../Components/TransformComponent.hpp"
+#include "../Components/UIRectComponent.hpp"
+#include "../ECS/ECS.hpp"
+#include "../Game/Game.hpp"
+
+/**
+ * @brief Renders text entities to the screen.
+ */
+class RenderTextSystem : public System {
+  public:
+    /**
+     * @brief Constructor.
+     */
+    RenderTextSystem() {
+      RequireComponent<TextComponent>();
+      RequireComponent<TransformComponent>();
+    }
+
+    /**
+     * @brief Renders all text entities.
+     *
+     * @param renderer SDL renderer used for drawing.
+     * @param assetManager Asset manager containing fonts.
+     */
+    void Update(SDL_Renderer* renderer
+      , const std::unique_ptr<AssetManager>& assetManager) {
+      for (auto entity : GetSystemEntities()) {
+
+        // pause menu check
+        bool isPauseMenuEntity = entity.HasComponent<PauseMenuComponent>();
+        if (isPauseMenuEntity && !Game::GetInstance().isPaused) {
+          continue;
+        }
+
+        auto& text = entity.GetComponent<TextComponent>();
+        auto& transform = entity.GetComponent<TransformComponent>();
+
+        SDL_Surface* surface = TTF_RenderText_Blended(
+          assetManager->GetFont(text.fontId), text.text.c_str(), text.color);
+        text.width = surface->w;
+        text.height = surface->h;
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_FreeSurface(surface);
+
+        // Default text position
+        int renderX = static_cast<int>(transform.position.x);
+        int renderY = static_cast<int>(transform.position.y);
+
+        // Center text if entity has a UI rectangle
+        if (entity.HasComponent<UIRectComponent>()) {
+
+          auto& rect = entity.GetComponent<UIRectComponent>();
+
+          int scaledTextWidth = text.width 
+            * static_cast<int>(transform.scale.x);
+
+          int scaledTextHeight = text.height 
+            * static_cast<int>(transform.scale.y);
+
+          renderX = static_cast<int>(transform.position.x)
+            + (rect.width - scaledTextWidth) / 2;
+
+          renderY = static_cast<int>(transform.position.y)
+            + (rect.height - scaledTextHeight) / 2;
+        }
+
+        SDL_Rect dstRect = {
+          renderX,
+          renderY,
+          text.width * static_cast<int>(transform.scale.x),
+          text.height * static_cast<int>(transform.scale.y),
+        };
+
+        SDL_RenderCopy(renderer, texture, NULL, &dstRect);
+        SDL_DestroyTexture(texture);
+      }
+    }
+};
+
+#endif  // RENDERTEXTSYSTEM_HPP

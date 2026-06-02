@@ -1,0 +1,73 @@
+#ifndef RENDERSYSTEM_HPP
+#define RENDERSYSTEM_HPP
+
+#include <SDL2/SDL.h>
+
+#include "../AssetManager/AssetManager.hpp"
+#include "../Components/SpriteComponent.hpp"
+#include "../Components/TransformComponent.hpp"
+#include "../Components/UIComponent.hpp"
+#include "../ECS/ECS.hpp"
+
+/**
+ * @brief Renders entity sprites to the screen.
+ */
+class RenderSystem : public System {
+  public:
+    /**
+     * @brief Constructor.
+     */
+    RenderSystem() {
+      RequireComponent<SpriteComponent>();
+      RequireComponent<TransformComponent>();
+    }
+
+    /**
+     * @brief Renders all visible sprites.
+     *
+     * @param renderer SDL renderer used for drawing.
+     * @param camera Current camera rectangle.
+     * @param assetManager Asset manager containing textures.
+     */
+    void Update(SDL_Renderer* renderer, SDL_Rect& camera
+      , const std::unique_ptr<AssetManager>& assetManager) {
+      for (auto entity : GetSystemEntities()) {
+        const auto sprite = entity.GetComponent<SpriteComponent>();
+        const auto transform = entity.GetComponent<TransformComponent>();
+
+        SDL_Rect srcRect = sprite.srcRect;
+
+        int renderX = transform.position.x + sprite.offset.x;
+        int renderY = transform.position.y + sprite.offset.y;
+        if (!entity.HasComponent<UIComponent>()) {
+          renderX -= camera.x;
+          renderY -= camera.y;
+        }
+
+        SDL_Rect dstRect = {
+          static_cast<int>(renderX),
+          static_cast<int>(renderY),
+          static_cast<int>(sprite.width * transform.scale.x),
+          static_cast<int>(sprite.height * transform.scale.y)
+        };
+
+        auto texture = assetManager->GetTexture(sprite.textureId);
+        if (!texture) {
+          std::cout << "[ERROR] Missing texture: " << sprite.textureId << std::endl;
+          continue;
+        }
+
+        SDL_RenderCopyEx(
+          renderer,
+          assetManager->GetTexture(sprite.textureId),
+          &srcRect,
+          &dstRect,
+          transform.rotation,
+          NULL,
+          (sprite.flip) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
+        );
+      }
+    }
+};
+
+#endif  // RENDERSYSTEM_HPP

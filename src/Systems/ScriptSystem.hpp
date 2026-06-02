@@ -1,0 +1,83 @@
+#ifndef SCRIPTSYSTEM_HPP
+#define SCRIPTSYSTEM_HPP
+
+#include <memory>
+#include <sol/sol.hpp>
+
+#include "../Binding/LuaBinding.hpp"
+#include "../Components/ScriptComponent.hpp"
+#include "../ECS/ECS.hpp"
+
+/**
+ * @brief Executes Lua scripts attached to entities.
+ */
+class ScriptSystem : public System {
+  public:   
+    /**
+     * @brief Constructor.
+     */
+    ScriptSystem() {
+      RequireComponent<ScriptComponent>();
+    }
+
+    /**
+     * @brief Registers C++ bindings for Lua scripts.
+     *
+     * @param lua Lua state used for scripting.
+     */
+    void CreateLuaBinding(sol::state& lua) {
+      // Classes
+      lua.new_usertype<Entity>("entity");
+
+      // Functions
+      lua.set_function("change_animation", ChangeAnimation);
+
+      lua.set_function("play_sound", PlaySound);
+
+      lua.set_function("is_action_activated", IsActionActivated);
+
+      lua.set_function("get_velocity", GetVelocity);
+      lua.set_function("set_velocity", SetVelocity);
+      lua.set_function("add_force", AddForce);
+
+      lua.set_function("get_tag", GetTag);
+
+      lua.set_function("get_position", GetPosition);
+      lua.set_function("set_position", SetPosition);
+
+      lua.set_function("get_size", GetSize);
+
+      lua.set_function("go_to_scene", GoToScene);
+
+      lua.set_function("flip_sprite", FlipSprite);
+
+      lua.set_function("left_collision", LeftCollision);
+      lua.set_function("right_collision", RightCollision);
+
+      lua.set_function("remove_layer", RemoveLayer);
+      lua.set_function("get_layer", GetLayer);
+
+      lua.set_function("set_direction", SetDirection);
+
+      lua.set_function("toggle_pause", TogglePause);
+    }
+
+    /**
+     * @brief Updates all scripted entities.
+     *
+     * @param lua Lua state used for scripting.
+     * @param delta_time Frame delta time in seconds.
+     */
+    void Update(sol::state& lua, double delta_time) {
+      for (auto entity : GetSystemEntities()) {
+        const auto& script = entity.GetComponent<ScriptComponent>();
+
+        if (script.update != sol::lua_nil) {
+          lua["this"] = entity;
+          script.update(delta_time);
+        }
+      }
+    }
+};
+
+#endif  // SCRIPTSYSTEM_HPP

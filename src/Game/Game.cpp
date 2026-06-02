@@ -1,0 +1,304 @@
+#include "Game.hpp"
+
+#include <iostream>
+
+#include "../Events/ClickEvent.hpp"
+
+#include "../Systems/AnimationSystem.hpp"
+#include "../Systems/AttackSystem.hpp"
+#include "../Systems/BoxCollisionSystem.hpp"
+#include "../Systems/CameraMovementSystem.hpp"
+#include "../Systems/CircleCollisionSystem.hpp"
+#include "../Systems/DamageSystem.hpp"
+#include "../Systems/FollowSystem.hpp"
+#include "../Systems/BarSystem.hpp"
+#include "../Systems/HealthSystem.hpp"
+#include "../Systems/LayerSystem.hpp"
+#include "../Systems/LifetimeSystem.hpp"
+#include "../Systems/MovementSystem.hpp"
+#include "../Systems/OverlapSystem.hpp"
+#include "../Systems/PatrolSystem.hpp"
+#include "../Systems/PhysicsSystem.hpp"
+#include "../Systems/PlayerSystem.hpp"
+#include "../Systems/RenderBoxColliderSystem.hpp"
+#include "../Systems/RenderSystem.hpp"
+#include "../Systems/RenderTextSystem.hpp"
+#include "../Systems/RenderUISystem.hpp"
+#include "../Systems/SanitySystem.hpp"
+#include "../Systems/ScriptSystem.hpp"
+#include "../Systems/UISystem.hpp"
+#include "../Systems/WanderSystem.hpp"
+
+Game::Game() {
+  std::cout << "[GAME] Se ejecuta constructor" << std::endl;
+
+  animationManager = std::make_unique<AnimationManager>();
+  assetManager = std::make_unique<AssetManager>();
+  audioManager = std::make_unique<AudioManager>();
+  controllerManager = std::make_unique<ControllerManager>();
+  eventManager = std::make_unique<EventManager>();
+  registry = std::make_unique<Registry>();
+  sceneManager = std::make_unique<SceneManager>();
+}
+
+Game::~Game() {
+  animationManager.reset();
+  assetManager.reset();
+  audioManager.reset();
+  controllerManager.reset();
+  eventManager.reset();
+  registry.reset();
+  sceneManager.reset();
+
+  std::cout << "[GAME] Se ejecuta destructor" << std::endl;
+}
+
+Game& Game::GetInstance() {
+  static Game game;
+  return game;
+}
+
+void Game::Init() {
+  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+    std::cout << "[GAME] Error al inicializar SDL" << std::endl;
+    return;
+  }
+
+  if (TTF_Init() != 0) {
+    std::cout << "[GAME] Error al inicializar SDL_ttf" << std::endl;
+    return;
+  }
+
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+      std::cout << "[GAME] Error al Mix_OpenAudio" << std::endl;
+      return;
+  }
+
+  Mix_VolumeMusic(MIX_MAX_VOLUME);
+
+  Mix_AllocateChannels(16); // number of simultaneous sounds
+
+  windowWidth = 800;
+  windowHeight = 600;
+
+  window = SDL_CreateWindow(
+    "Game 02",
+    SDL_WINDOWPOS_CENTERED,
+    SDL_WINDOWPOS_CENTERED,
+    windowWidth,
+    windowHeight,
+    SDL_WINDOW_SHOWN
+  );
+
+  if (!window) {
+    std::cout << "[GAME] Error al crear la pantalla" << std::endl;
+    return;
+  }
+
+  renderer = SDL_CreateRenderer(window, -1, 0);
+
+  if (!renderer) {
+    std::cout << "[GAME] Error al crear el renderer" << std::endl;
+    return;
+  }
+
+  // render 16x16 map at twice the scale
+  SDL_RenderSetScale(renderer, 2.0, 2.0);
+
+  camera.x = 0;
+  camera.y = 0;
+  camera.w = windowWidth;
+  camera.h = windowHeight;
+
+  isRunning = true;
+}
+
+void Game::SetUp() {
+  registry->AddSystem<AnimationSystem>();
+  registry->AddSystem<AttackSystem>();
+  registry->AddSystem<BoxCollisionSystem>();
+  registry->AddSystem<CameraMovementSystem>();
+  registry->AddSystem<CircleCollisionSystem>();
+  registry->AddSystem<DamageSystem>();
+  registry->AddSystem<FollowSystem>();
+  registry->AddSystem<BarSystem>();
+  registry->AddSystem<HealthSystem>();
+  registry->AddSystem<LayerSystem>();
+  registry->AddSystem<LifetimeSystem>();
+  registry->AddSystem<MovementSystem>();
+  registry->AddSystem<OverlapSystem>();
+  registry->AddSystem<PatrolSystem>();
+  registry->AddSystem<PhysicsSystem>();
+  registry->AddSystem<PlayerSystem>();
+  registry->AddSystem<RenderBoxColliderSystem>();
+  registry->AddSystem<RenderSystem>();
+  registry->AddSystem<RenderTextSystem>();
+  registry->AddSystem<RenderUISystem>();
+  registry->AddSystem<SanitySystem>();
+  registry->AddSystem<ScriptSystem>();
+  registry->AddSystem<UISystem>();
+  registry->AddSystem<WanderSystem>();
+
+  sceneManager->LoadSceneFromScript("./assets/scripts/scenes.lua", lua);
+
+  lua.open_libraries(sol::lib::base, sol::lib::math);
+  registry->GetSystem<ScriptSystem>().CreateLuaBinding(lua);
+}
+
+void Game::ProcessInput() {
+  SDL_Event sdlEvent;
+
+  while (SDL_PollEvent(&sdlEvent)) {
+    switch (sdlEvent.type) {
+      case SDL_QUIT:
+        sceneManager->StopScene();
+        isRunning = false;
+        break;
+      case SDL_KEYDOWN:
+        if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
+          sceneManager->StopScene();
+          isRunning = false;
+          break;
+        }
+        if (sdlEvent.key.keysym.sym == SDLK_i) {
+          isDebugMode = !isDebugMode;
+          break;
+        }
+        controllerManager->KeyDown(sdlEvent.key.keysym.sym);
+        break;
+      case SDL_KEYUP:
+        controllerManager->KeyUp(sdlEvent.key.keysym.sym);
+        break;
+      case SDL_MOUSEMOTION:
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        controllerManager->SetMousePosition(x, y);
+        break;
+      case SDL_MOUSEBUTTONDOWN:
+        controllerManager->SetMousePosition(sdlEvent.button.x
+          , sdlEvent.button.y);
+        controllerManager->MouseButtonDown(
+          static_cast<int>(sdlEvent.button.button));
+        eventManager->EmitEvent<ClickEvent>(
+          static_cast<int>(sdlEvent.button.button), sdlEvent.button.x
+          , sdlEvent.button.y);
+          std::cout << (int)sdlEvent.button.button << std::endl;
+          std::cout << "(x, y) : (" << (int)sdlEvent.button.x << ", " << (int)sdlEvent.button.y << ")" << std::endl;
+        break;
+      case SDL_MOUSEBUTTONUP:
+        controllerManager->SetMousePosition(sdlEvent.button.x
+          , sdlEvent.button.y);
+        controllerManager->MouseButtonUp(
+          static_cast<int>(sdlEvent.button.button));
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+void Game::Update() {
+  int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks()
+    - millisecsPreviousFrame);
+
+  if (0 < timeToWait && timeToWait <= MILLISECS_PER_FRAME) {
+    SDL_Delay(timeToWait);
+  }
+
+  double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
+  // TODO: agregar esta variable al estado de lua
+
+  millisecsPreviousFrame = SDL_GetTicks();
+
+  // Reiniciar las subscripciones
+  eventManager->Reset();
+  registry->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
+  registry->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
+  registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
+  registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
+
+  if (!this->isPaused && !this->isGameOver) {
+    registry->Update();
+
+    registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
+
+    registry->GetSystem<PlayerSystem>().Update();
+    TransformComponent& playerTransform = 
+      registry->GetSystem<PlayerSystem>().GetPlayerTransform();
+
+    registry->GetSystem<PhysicsSystem>().Update();
+    registry->GetSystem<MovementSystem>().Update(deltaTime);
+    registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
+    registry->GetSystem<PatrolSystem>().Update(deltaTime);
+    registry->GetSystem<WanderSystem>().Update(deltaTime);
+    registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
+    registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
+    
+    registry->GetSystem<LifetimeSystem>().Update(deltaTime);
+    registry->GetSystem<SanitySystem>().Update(deltaTime);
+    registry->GetSystem<HealthSystem>().Update(deltaTime);
+    registry->GetSystem<AttackSystem>().Update(deltaTime);
+
+    registry->GetSystem<AnimationSystem>().Update(animationManager);
+    registry->GetSystem<CameraMovementSystem>().Update(camera);
+    registry->GetSystem<UISystem>().Update(camera);
+  }
+}
+
+void Game::Render() {
+  SDL_SetRenderDrawColor(renderer, 31, 31, 31, 255);
+  SDL_RenderClear(renderer);
+
+  Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
+
+  registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
+  registry->GetSystem<RenderUISystem>().Update(renderer);
+  registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
+  registry->GetSystem<BarSystem>().Update(renderer, player);
+  registry->GetSystem<UISystem>().Update(camera);
+
+  if (isDebugMode) {
+    registry->GetSystem<RenderBoxColliderSystem>().Update(renderer, camera);
+  }
+  
+  SDL_RenderPresent(renderer);
+}
+
+void Game::RunScene() {
+  sceneManager->LoadScene();
+
+  while (sceneManager->IsSceneRunning()) {
+    ProcessInput();
+    Update();
+    Render();
+  }
+
+  registry->ClearAllEntities();
+  assetManager->ClearAssets();
+  audioManager->ClearAudio();
+
+  // reset win condition
+  this->buttonCount = 2;
+
+  // reset pause
+  if (this->isPaused) {
+    this->isPaused = false;
+  }
+}
+
+void Game::Run() {
+  SetUp();
+
+  while (isRunning) {
+    sceneManager->StartScene();
+    RunScene();
+  }
+}
+
+void Game::Destroy() {
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  Mix_CloseAudio();
+  TTF_Quit();
+  SDL_Quit();
+}

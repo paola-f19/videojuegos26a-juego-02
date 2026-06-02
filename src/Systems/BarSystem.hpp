@@ -1,0 +1,102 @@
+#ifndef BARSYSTEM_HPP
+#define BARSYSTEM_HPP
+
+#include <iostream>
+
+#include "../Components/BarComponent.hpp"
+#include "../Components/HealthComponent.hpp"
+#include "../Components/SanityComponent.hpp"
+#include "../ECS/ECS.hpp"
+
+/**
+ * @brief Renders UI bars such as health and sanity.
+ */
+class BarSystem : public System {
+public:
+  /**
+   * @brief Constructor.
+   */
+  BarSystem() {
+    RequireComponent<BarComponent>();
+  }
+
+  /**
+   * @brief Renders all active UI bars.
+   *
+   * @param renderer SDL renderer used for drawing.
+   * @param player Player entity containing tracked stats.
+   */
+  void Update(SDL_Renderer* renderer, Entity player) {
+    if (player.GetId() == -1) {
+      return;
+    }
+    
+    for (auto entity : GetSystemEntities()) {
+      const auto& bar = entity.GetComponent<BarComponent>();
+
+      float current = 0.0f;
+      float max = 1.0f;
+
+      // HEALTH BAR
+      if (bar.type == BarType::HEALTH &&
+        player.HasComponent<HealthComponent>()) {
+
+        const auto& health = player.GetComponent<HealthComponent>();
+
+        current = health.currentHealth;
+        max = health.maxHealth;
+      }
+      // SANITY BAR
+      else if (bar.type == BarType::SANITY &&
+        player.HasComponent<SanityComponent>()) {
+
+        const auto& sanity = player.GetComponent<SanityComponent>();
+
+        current = sanity.currentSanity;
+        max = sanity.maxSanity;
+      }
+
+      float percent = current / max;
+
+      int currentWidth = static_cast<int>(bar.width * percent);
+
+      // Background
+      SDL_Rect bgRect = {
+        bar.posX,
+        bar.posY,
+        bar.width,
+        bar.height
+      };
+
+      SDL_SetRenderDrawColor(
+        renderer,
+        bar.bgColor.r,
+        bar.bgColor.g,
+        bar.bgColor.b,
+        bar.bgColor.a
+      );
+
+      SDL_RenderFillRect(renderer, &bgRect);
+
+      // Foreground
+      SDL_Rect fgRect = {
+        bar.posX,
+        bar.posY,
+        currentWidth,
+        bar.height
+      };
+
+      SDL_SetRenderDrawColor(
+        renderer,
+        bar.fgColor.r,
+        bar.fgColor.g,
+        bar.fgColor.b,
+        bar.fgColor.a
+      );
+
+      SDL_RenderFillRect(renderer, &fgRect);
+    }
+  }
+};
+
+#endif  // BARSYSTEM_HPP
