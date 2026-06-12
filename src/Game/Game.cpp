@@ -78,8 +78,8 @@ void Game::Init() {
 
   Mix_AllocateChannels(16); // number of simultaneous sounds
 
-  windowWidth = 800;
-  windowHeight = 600;
+  windowWidth = 1000;
+  windowHeight = 800;
 
   window = SDL_CreateWindow(
     "Game 02",

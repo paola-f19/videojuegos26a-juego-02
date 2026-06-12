@@ -9,7 +9,7 @@ player_states = {
 player_state = player_states["idle"]
 last_direction = "down"
 
-player_velocity = 150
+player_velocity = 200
 fixed_player_velocity = math.sqrt((player_velocity * player_velocity) / 2)
 
 is_attacking = false
@@ -137,18 +137,18 @@ function start_attack()
 
   print("[LUASCRIPT] player started attack!")
 
-  if last_direction == "right" then
-    flip_sprite(this, false)
-    change_animation(this, "player_attack_side")
+  -- if last_direction == "right" then
+  --   flip_sprite(this, false)
+  --   change_animation(this, "player_attack_side")
 
-  elseif last_direction == "left" then
-    flip_sprite(this, true)
-    change_animation(this, "player_attack_side")
+  -- elseif last_direction == "left" then
+  --   flip_sprite(this, true)
+  --   change_animation(this, "player_attack_side")
 
-  elseif last_direction == "up" then
-    change_animation(this, "player_attack_up")
+  -- elseif last_direction == "up" then
+  --   change_animation(this, "player_attack_up")
 
-  elseif last_direction == "down" then
-    change_animation(this, "player_attack_down")
-  end
+  -- elseif last_direction == "down" then
+  --   change_animation(this, "player_attack_down")
+  -- end
 end
