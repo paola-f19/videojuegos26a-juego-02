@@ -7,6 +7,7 @@ scene = {
     {assetId = "farmer_idle", filePath = "./assets/images/farmer_idle.png"},
     {assetId = "farmer_walk", filePath = "./assets/images/farmer_walk.png"},
     {assetId = "player", filePath = "./assets/images/player.png"},
+    {assetId = "bamboo", filePath = "./assets/images/bamboo.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
 
@@ -146,6 +147,12 @@ scene = {
     },
   },
 
+  -- Tabla de items
+  items =  {
+    [0] = 
+    {id = "bamboo", texture = "bamboo", consumable = false},
+  },
+
   -- Tabla de entidades
   entities = {
     [0] =
@@ -249,6 +256,31 @@ scene = {
         },
       },
     },
+    -- Item on ground test
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "bamboo"
+        },
+        sprite = {
+          assetId = "bamboo",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x = 480.0, y = 250.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
     -- Player
     -- last on the list so it renders on top of all other entities
     {
@@ -264,9 +296,9 @@ scene = {
         },
         camera_follow = {},
         box_collider = {
-          width = 8,
-          height = 10,
-          offset = { x = 4, y = 12 },
+          width = 16,
+          height = 16,
+          offset = { x = 8, y = 8 },
         },
         health = {
           maxHealth = 100,
@@ -276,6 +308,8 @@ scene = {
         faction = {
           faction = "player",
         },
+        inventory = {},
+        player = {},
         rigid_body = {
           is_dynamic = false,
           is_solid = true,
@@ -293,14 +327,14 @@ scene = {
           assetId = "farmer_idle",
           width = 48,
           height = 48,
-          src_rect = { x = 16, y = 16 }, -- TODO: overriden by animation
-          offset = { x = -16, y = -16 },
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
         },
         tag = {
           tag = "player",
         },
         transform = {
-          position = { x = 480.0, y = 220.0 },
+          position = { x = 465.0, y = 200.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },

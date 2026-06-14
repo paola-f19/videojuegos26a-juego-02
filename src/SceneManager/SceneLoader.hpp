@@ -13,6 +13,7 @@
 #include "../AudioManager/AudioManager.hpp"
 #include "../ControllerManager/ControllerManager.hpp"
 #include "../ECS/ECS.hpp"
+#include "../ItemManager/ItemManager.hpp"
 
 /**
  * @brief Stores tileset metadata used for tilemap loading.
@@ -46,6 +47,9 @@ class SceneLoader {
      */
     void LoadAnimations(const sol::table& animations
       , std::unique_ptr<AnimationManager>& animationManager);
+
+    void LoadItems(const sol::table& items
+      , std::unique_ptr<ItemManager>& itemManager);
 
     /**
      * @brief Loads sound effects.
@@ -163,6 +167,7 @@ class SceneLoader {
       , std::unique_ptr<AssetManager>& assetManager
       , std::unique_ptr<AudioManager>& audioManager
       , std::unique_ptr<ControllerManager>& controllerManager
+      , std::unique_ptr<ItemManager>& itemManager
       , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer);
 };
 

@@ -16,9 +16,12 @@
 #include "../Components/FollowComponent.hpp"
 #include "../Components/BarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
+#include "../Components/InventoryComponent.hpp"
+#include "../Components/ItemComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/PatrolComponent.hpp"
 #include "../Components/PauseMenuComponent.hpp"
+#include "../Components/PlayerComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/SanityComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
@@ -44,6 +47,7 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   , std::unique_ptr<AssetManager>& assetManager
   , std::unique_ptr<AudioManager>& audioManager
   , std::unique_ptr<ControllerManager>& controllerManager
+  , std::unique_ptr<ItemManager>& itemManager
   , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer) {
   
   sol::load_result script_result = lua.load_file(scenePath);
@@ -65,6 +69,10 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   sol::table animations = scene["animations"];
   LoadAnimations(animations, animationManager);
   std::cout << " [SCENELOADER] loaded animations" << std::endl;
+
+  sol::table items = scene["items"];
+  LoadItems(items, itemManager);
+  std::cout << " [SCENELOADER] loaded items" << std::endl;
 
   sol::table sounds = scene["sounds"];
   LoadSoundEffects(sounds, audioManager);
@@ -142,6 +150,26 @@ void SceneLoader::LoadAnimations(const sol::table& animations
 
     index++;
   } 
+}
+
+void SceneLoader::LoadItems(const sol::table& items
+  , std::unique_ptr<ItemManager>& itemManager) {
+  int index = 0;
+  while (true) {
+    sol::optional<sol::table> hasItem = items[index];
+    if (hasItem == sol::nullopt) {
+      break;
+    }
+
+    sol::table item = items[index];
+    std::string id = item["id"];
+    std::string texture = item["texture"];
+    bool consumable = item["consumable"];
+
+    itemManager->AddItem(id, texture, consumable);
+
+    index++;
+  }
 }
 
 void SceneLoader::LoadSoundEffects(const sol::table& sounds
@@ -609,6 +637,19 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
 
+      //* InventoryComponent
+      sol::optional<sol::table> hasInventory = components["inventory"];
+      if (hasInventory != sol::nullopt) {
+        newEntity.AddComponent<InventoryComponent>();
+      }
+
+      //* ItemComponent
+      sol::optional<sol::table> hasItem = components["item"];
+      if (hasItem != sol::nullopt) {
+        std::string id = components["item"]["id"];
+        newEntity.AddComponent<ItemComponent>(id);
+      }
+
       //* LayerComponent
       sol::optional<sol::table> hasLayer = components["layer"];
       if (hasLayer != sol::nullopt) {
@@ -646,6 +687,12 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
       sol::optional<sol::table> hasPauseMenu = components["pause_menu"];
       if (hasPauseMenu != sol::nullopt) {
         newEntity.AddComponent<PauseMenuComponent>();
+      }
+
+      //* PlayerComponent
+      sol::optional<sol::table> hasPlayer = components["player"];
+      if (hasPlayer != sol::nullopt) {
+        newEntity.AddComponent<PlayerComponent>();
       }
 
       //* RigidBodyComponent

@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../Events/ClickEvent.hpp"
+#include "../Events/KeyEvent.hpp"
 
 #include "../Systems/AnimationSystem.hpp"
 #include "../Systems/AttackSystem.hpp"
@@ -13,6 +14,8 @@
 #include "../Systems/FollowSystem.hpp"
 #include "../Systems/BarSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
+#include "../Systems/InventorySystem.hpp"
+#include "../Systems/ItemPickupSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
 #include "../Systems/MovementSystem.hpp"
@@ -37,6 +40,7 @@ Game::Game() {
   audioManager = std::make_unique<AudioManager>();
   controllerManager = std::make_unique<ControllerManager>();
   eventManager = std::make_unique<EventManager>();
+  itemManager = std::make_unique<ItemManager>();
   registry = std::make_unique<Registry>();
   sceneManager = std::make_unique<SceneManager>();
 }
@@ -47,6 +51,7 @@ Game::~Game() {
   audioManager.reset();
   controllerManager.reset();
   eventManager.reset();
+  itemManager.reset();
   registry.reset();
   sceneManager.reset();
 
@@ -123,6 +128,8 @@ void Game::SetUp() {
   registry->AddSystem<FollowSystem>();
   registry->AddSystem<BarSystem>();
   registry->AddSystem<HealthSystem>();
+  registry->AddSystem<InventorySystem>();
+  registry->AddSystem<ItemPickupSystem>();
   registry->AddSystem<LayerSystem>();
   registry->AddSystem<LifetimeSystem>();
   registry->AddSystem<MovementSystem>();
@@ -162,6 +169,16 @@ void Game::ProcessInput() {
         }
         if (sdlEvent.key.keysym.sym == SDLK_i) {
           isDebugMode = !isDebugMode;
+          break;
+        }
+        if (sdlEvent.key.keysym.sym == SDLK_q) {
+          std::cout << "PRESSED Q" << std::endl;
+          eventManager->EmitEvent<KeyEvent>('q');
+          break;
+        }
+        if (sdlEvent.key.keysym.sym == SDLK_e) {
+          std::cout << "PRESSED E" << std::endl;
+          eventManager->EmitEvent<KeyEvent>('e');
           break;
         }
         controllerManager->KeyDown(sdlEvent.key.keysym.sym);
@@ -215,6 +232,9 @@ void Game::Update() {
   registry->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
   registry->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
   registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
+  registry->GetSystem<ItemPickupSystem>().SubscribeToCollisionEvent(eventManager);
+  registry->GetSystem<InventorySystem>().SubscribeToKeyEvent(eventManager);
+  registry->GetSystem<InventorySystem>().SubscribeToClickEvent(eventManager);
   registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
 
   if (!this->isPaused && !this->isGameOver) {
