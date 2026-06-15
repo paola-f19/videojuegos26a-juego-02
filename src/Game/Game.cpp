@@ -15,6 +15,7 @@
 #include "../Systems/BarSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
 #include "../Systems/InventorySystem.hpp"
+#include "../Systems/InventoryUISystem.hpp"
 #include "../Systems/ItemPickupSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
@@ -129,6 +130,7 @@ void Game::SetUp() {
   registry->AddSystem<BarSystem>();
   registry->AddSystem<HealthSystem>();
   registry->AddSystem<InventorySystem>();
+  registry->AddSystem<InventoryUISystem>();
   registry->AddSystem<ItemPickupSystem>();
   registry->AddSystem<LayerSystem>();
   registry->AddSystem<LifetimeSystem>();
@@ -275,6 +277,8 @@ void Game::Render() {
   registry->GetSystem<RenderUISystem>().Update(renderer);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
   registry->GetSystem<BarSystem>().Update(renderer, player);
+  registry->GetSystem<InventoryUISystem>().Update(renderer, assetManager
+    , itemManager);
   registry->GetSystem<UISystem>().Update(camera);
 
   if (isDebugMode) {

@@ -1,13 +1,20 @@
 #ifndef INVENTORYSYSTEP_HPP
 #define INVENTORYSYSTEM_HPP
 
+#include <glm/glm.hpp>
+
+#include <iostream>
+
 #include "../Components/InventoryComponent.hpp"
 #include "../Components/ItemComponent.hpp"
 #include "../Components/PlayerComponent.hpp"
+#include "../Components/SpriteComponent.hpp"
+#include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/ClickEvent.hpp"
 #include "../Events/KeyEvent.hpp"
+#include "../Game/Game.hpp"
 
 class InventorySystem : public System {
   public:
@@ -59,6 +66,49 @@ class InventorySystem : public System {
 
     void DropSlot(int slotIndex) {
       std::cout << "DROP SLOT " << slotIndex << std::endl;
+
+      auto player = GetSystemEntities()[0];
+      auto& inventory = player.GetComponent<InventoryComponent>();
+
+      InventorySlot& slot = slotIndex == 1 ? inventory.slot1 : inventory.slot2;
+      if (slot.itemId == "none") {
+        return;
+      }
+
+      auto& transform = player.GetComponent<TransformComponent>();
+      glm::vec2 position = transform.position;
+
+      const auto& item = Game::GetInstance().itemManager->GetItem(slot.itemId);
+
+      Entity droppedItem = Game::GetInstance().registry->CreateEntity();
+
+      droppedItem.AddComponent<TransformComponent>(
+        glm::vec2(
+          position.x + 8,
+          position.y + 30
+        ),
+        glm::vec2(1.0f, 1.0f),
+        0.0f
+      );
+
+      droppedItem.AddComponent<SpriteComponent>(
+        item.textureId,
+        item.width,
+        item.height,
+        item.srcRect.x,
+        item.srcRect.y,
+        glm::vec2(0, 0)
+      );
+
+      droppedItem.AddComponent<ItemComponent>(slot.itemId);
+
+      droppedItem.AddComponent<BoxColliderComponent>(
+        item.width,
+        item.height,
+        glm::vec2(0, 0)
+      );
+
+      slot.itemId = "none";
     }
 
 };

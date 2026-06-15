@@ -165,8 +165,13 @@ void SceneLoader::LoadItems(const sol::table& items
     std::string id = item["id"];
     std::string texture = item["texture"];
     bool consumable = item["consumable"];
+    int width = item["width"];
+    int height = item["height"];
+    int srcRectX = item["src_rect"]["x"];
+    int srcRectY = item["src_rect"]["y"];
 
-    itemManager->AddItem(id, texture, consumable);
+    itemManager->AddItem(id, texture, consumable, width, height, srcRectX
+      , srcRectY);
 
     index++;
   }

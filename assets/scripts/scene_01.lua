@@ -150,7 +150,7 @@ scene = {
   -- Tabla de items
   items =  {
     [0] = 
-    {id = "bamboo", texture = "bamboo", consumable = false},
+    {id = "bamboo", texture = "bamboo", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
   },
 
   -- Tabla de entidades
@@ -256,7 +256,7 @@ scene = {
         },
       },
     },
-    -- Item on ground test
+    -- Item on ground test 1
     {
       components = {
         box_collider = {
@@ -276,6 +276,31 @@ scene = {
         },
         transform = {
           position = { x = 480.0, y = 250.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Item on ground test 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "bamboo"
+        },
+        sprite = {
+          assetId = "bamboo",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x = 450.0, y = 250.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
