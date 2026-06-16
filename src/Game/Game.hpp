@@ -15,6 +15,7 @@
 #include "../ControllerManager/ControllerManager.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../ECS/ECS.hpp"
+#include "../ItemManager/ItemManager.hpp"
 #include "../SceneManager/SceneManager.hpp"
 
 const int FPS = 30;
@@ -42,6 +43,7 @@ class Game {
     std::unique_ptr<AudioManager> audioManager;
     std::unique_ptr<ControllerManager> controllerManager;
     std::unique_ptr<EventManager> eventManager;
+    std::unique_ptr<ItemManager> itemManager;
     std::unique_ptr<Registry> registry;
     std::unique_ptr<SceneManager> sceneManager;
     sol::state lua;
