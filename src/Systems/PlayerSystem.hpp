@@ -1,6 +1,7 @@
 #ifndef PLAYERSYSTEM_HPP
 #define PLAYERSYSTEM_HPP
 
+#include "../Components/PlayerComponent.hpp"
 #include "../Components/TagComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
@@ -18,6 +19,7 @@ class PlayerSystem : public System {
      * @brief Constructor.
      */
     PlayerSystem() {
+      RequireComponent<PlayerComponent>();
       RequireComponent<TagComponent>();
       RequireComponent<TransformComponent>();
     }
@@ -27,13 +29,7 @@ class PlayerSystem : public System {
      */
     void Update() {
       for (auto entity : GetSystemEntities()) {
-        auto& tag = entity.GetComponent<TagComponent>();
-
-        if (tag.tag == "player") {
-          playerTransform = &entity.GetComponent<TransformComponent>();
-          player = entity;
-          break;
-        }
+        this->player = entity;
       }
     }
 
@@ -53,6 +49,12 @@ class PlayerSystem : public System {
      */
     Entity GetPlayer() const {
       return player;
+    }
+
+    void ClearCurrentFarmPlot() {
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+
+      playerComponent.currentFarmPlot = Entity(-1);
     }
 };
 

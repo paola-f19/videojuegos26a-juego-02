@@ -6,15 +6,18 @@
 
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/ConsumableComponent.hpp"
+#include "../Components/FarmPlotComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/SanityComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
-#include "../Components/TagComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/PlayerComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
+#include "../Systems/CropSystem.hpp"
+#include "../Game/Game.hpp"
 
 /**
  * @brief Detects and handles box collisions between entities.
@@ -85,6 +88,16 @@ class BoxCollisionSystem : public System {
 
       // Destroy potion
       potion.Kill();
+    }
+
+    void HandleFarmPlotDetection(Entity player, Entity farmPlot)  {
+      std::cout << "Farm plot detected!" << std::endl;
+
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+
+      playerComponent.currentFarmPlot = farmPlot;
+
+      // Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(farmPlot, "bamboo");
     }
 
   public:
@@ -160,22 +173,29 @@ class BoxCollisionSystem : public System {
             }
             
             // Consumable pickup 
-            if (a.HasComponent<TagComponent>() &&
+            if (a.HasComponent<PlayerComponent>() &&
               b.HasComponent<ConsumableComponent>())
             {
-              const auto& tag = a.GetComponent<TagComponent>();
-              if (tag.tag == "player") {
-                HandleConsumablePickup(a, b);
-              }
+              HandleConsumablePickup(a, b);
             }
 
-            if (b.HasComponent<TagComponent>() &&
+            if (b.HasComponent<PlayerComponent>() &&
               a.HasComponent<ConsumableComponent>())
             {
-              const auto& tag = b.GetComponent<TagComponent>();
-              if (tag.tag == "player") {
-                HandleConsumablePickup(b, a);
-              }
+              HandleConsumablePickup(b, a);
+            }
+
+            // Farm plot detection
+            if (a.HasComponent<PlayerComponent>() &&
+              b.HasComponent<FarmPlotComponent>())
+            {
+              HandleFarmPlotDetection(a, b);
+            }
+
+            if (b.HasComponent<PlayerComponent>() &&
+              a.HasComponent<FarmPlotComponent>())
+            {
+              HandleFarmPlotDetection(b, a);
             }
           }
         }

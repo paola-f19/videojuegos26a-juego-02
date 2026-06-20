@@ -10,6 +10,7 @@
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
+#include "../Systems/CropSystem.hpp"
 #include "../Systems/DamageSystem.hpp"
 #include "../Systems/FollowSystem.hpp"
 #include "../Systems/BarSystem.hpp"
@@ -125,6 +126,7 @@ void Game::SetUp() {
   registry->AddSystem<BoxCollisionSystem>();
   registry->AddSystem<CameraMovementSystem>();
   registry->AddSystem<CircleCollisionSystem>();
+  registry->AddSystem<CropSystem>();
   registry->AddSystem<DamageSystem>();
   registry->AddSystem<FollowSystem>();
   registry->AddSystem<BarSystem>();
@@ -248,6 +250,8 @@ void Game::Update() {
     TransformComponent& playerTransform = 
       registry->GetSystem<PlayerSystem>().GetPlayerTransform();
 
+    registry->GetSystem<PlayerSystem>().ClearCurrentFarmPlot();
+
     registry->GetSystem<PhysicsSystem>().Update();
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
@@ -256,6 +260,7 @@ void Game::Update() {
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
     
+    registry->GetSystem<CropSystem>().Update(deltaTime);
     registry->GetSystem<LifetimeSystem>().Update(deltaTime);
     registry->GetSystem<SanitySystem>().Update(deltaTime);
     registry->GetSystem<HealthSystem>().Update(deltaTime);

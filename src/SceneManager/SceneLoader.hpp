@@ -138,6 +138,9 @@ class SceneLoader {
      */
     void LoadColliders(std::unique_ptr<Registry>& registry
       , tinyxml2::XMLElement* objectGroup);
+
+    void LoadFarmPlots(std::unique_ptr<Registry>& registry
+      , tinyxml2::XMLElement* objectGroup);
   
   public:
     /**

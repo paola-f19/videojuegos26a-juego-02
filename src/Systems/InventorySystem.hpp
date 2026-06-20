@@ -62,6 +62,55 @@ class InventorySystem : public System {
 
     void UseSlot(int slotIndex) {
       std::cout << "USE SLOT " << slotIndex << std::endl;
+
+      auto player = GetSystemEntities()[0];
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+      auto& inventory = player.GetComponent<InventoryComponent>();
+
+      InventorySlot& slot = slotIndex == 1 ? inventory.slot1 : inventory.slot2;
+
+      auto& item = Game::GetInstance().itemManager->GetItem(slot.itemId);
+
+      // TOOLS
+
+      if (item.id == "sickle") {
+        if(playerComponent.currentFarmPlot.GetId() == -1)
+          return;
+
+        Game::GetInstance().registry->GetSystem<CropSystem>().HarvestCrop(
+          playerComponent.currentFarmPlot);
+
+        return;
+      }
+
+      // PLANTING
+
+      if (isSeed(item.id)) {
+        if (playerComponent.currentFarmPlot.GetId() == -1) {
+          std::cout << "NO FARM PLOT DETECTED" << std::endl;
+          return;
+        }
+
+        // check that plot is free
+        auto& farmPlot = playerComponent.currentFarmPlot
+          .GetComponent<FarmPlotComponent>();
+        if (farmPlot.occupied)
+          return;
+
+        Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(
+          playerComponent.currentFarmPlot,
+          item.id
+        );
+
+        slot.itemId = "none";
+
+        return;
+      }
+
+      // remove item
+      // if (item.consumable) {
+      //   slot.itemId = "none";
+      // }
     }
 
     void DropSlot(int slotIndex) {
@@ -110,7 +159,10 @@ class InventorySystem : public System {
 
       slot.itemId = "none";
     }
-
+  private:
+    bool isSeed(const std::string& itemId) {
+      return itemId.size() >= 6 && itemId.substr(itemId.size() - 6) == "_seeds";
+    }
 };
 
 #endif  // INVENTORYSYSTEM_HPP

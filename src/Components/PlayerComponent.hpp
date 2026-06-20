@@ -2,6 +2,8 @@
 #define PLAYERCOMPONENT_HPP
 
 struct PlayerComponent {
+  Entity currentFarmPlot{-1};
+
   PlayerComponent() {};
 };
 

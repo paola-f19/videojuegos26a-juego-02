@@ -23,6 +23,6 @@ void ItemManager::AddItem(const std::string& id, const std::string& textureId
   );
 }
 
-ItemDefinition ItemManager::GetItem(const std::string& id) {
+ItemDefinition& ItemManager::GetItem(const std::string& id) {
   return items[id];
 }
