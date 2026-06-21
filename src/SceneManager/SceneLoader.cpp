@@ -13,6 +13,7 @@
 #include "../Components/DamageComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
+#include "../Components/FarmPlotComponent.hpp"
 #include "../Components/FollowComponent.hpp"
 #include "../Components/BarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
@@ -381,6 +382,8 @@ void SceneLoader::LoadMap(const sol::table map,
 
     if (name.find("colliders") != std::string::npos) {
       LoadColliders(registry, xmlObjectGroup);
+    } else if (name.find("farm_plot") != std::string::npos) {
+      LoadFarmPlots(registry, xmlObjectGroup);
     }
 
     xmlObjectGroup = xmlObjectGroup->NextSiblingElement("objectgroup");
@@ -475,6 +478,40 @@ void SceneLoader::LoadColliders(std::unique_ptr<Registry>& registry
     collider.AddComponent<BoxColliderComponent>(w, h);
     collider.AddComponent<RigidBodyComponent>(false, true, 9999999999.0f);
     collider.AddComponent<LayerComponent>(layer);
+
+    object = object->NextSiblingElement("object");
+  }
+}
+
+void SceneLoader::LoadFarmPlots(std::unique_ptr<Registry>& registry
+  , tinyxml2::XMLElement* objectGroup) {
+  // Cargar el primer objeto
+  tinyxml2::XMLElement* object = objectGroup->FirstChildElement("object");
+
+  while (object != nullptr) {
+    // Declarar variables
+    const char* name;
+    std::string tag;
+    int x, y, w, h;
+
+    // Obtener el tag del objeto
+    object->QueryStringAttribute("name", &name);
+    tag = name;
+
+    // Obtener la posicion
+    object->QueryIntAttribute("x", &x);
+    object->QueryIntAttribute("y", &y);
+
+    // Obtener medidas
+    object->QueryIntAttribute("width", &w);
+    object->QueryIntAttribute("height", &h);
+
+    // Crear entidad
+    Entity collider = registry->CreateEntity();
+    collider.AddComponent<TagComponent>(tag);
+    collider.AddComponent<TransformComponent>(glm::vec2(x, y));
+    collider.AddComponent<BoxColliderComponent>(w, h);
+    collider.AddComponent<FarmPlotComponent>();
 
     object = object->NextSiblingElement("object");
   }

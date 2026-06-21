@@ -29,7 +29,7 @@ class ItemManager {
     void AddItem(const std::string& id, const std::string& textureId
       , bool consumable, int width = 0, int height = 0, int srcRectX = 0
       , int srcRectY = 0);
-    ItemDefinition GetItem(const std::string& id);
+    ItemDefinition& GetItem(const std::string& id);
 };
 
 #endif  // ITEMMANAGER_HPP

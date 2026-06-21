@@ -8,6 +8,10 @@ scene = {
     {assetId = "farmer_walk", filePath = "./assets/images/farmer_walk.png"},
     {assetId = "player", filePath = "./assets/images/player.png"},
     {assetId = "bamboo", filePath = "./assets/images/bamboo.png"},
+    {assetId = "berry", filePath = "./assets/images/berry.png"},
+    {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
+    {assetId = "sickle", filePath = "./assets/images/sickle.png"},
+    {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
 
@@ -150,7 +154,11 @@ scene = {
   -- Tabla de items
   items =  {
     [0] = 
-    {id = "bamboo", texture = "bamboo", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "sickle", texture = "sickle", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "watering_can", texture = "watering_can", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
   },
 
   -- Tabla de entidades
@@ -265,10 +273,10 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         item = {
-          id = "bamboo"
+          id = "sickle"
         },
         sprite = {
-          assetId = "bamboo",
+          assetId = "sickle",
           width = 16,
           height = 16,
           src_rect = { x = 0, y = 0 },
@@ -276,6 +284,31 @@ scene = {
         },
         transform = {
           position = { x = 480.0, y = 250.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Item on ground test 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "watering_can"
+        },
+        sprite = {
+          assetId = "watering_can",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x = 500.0, y = 250.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -290,10 +323,10 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         item = {
-          id = "bamboo"
+          id = "berry_seeds"
         },
         sprite = {
-          assetId = "bamboo",
+          assetId = "berry_seeds",
           width = 16,
           height = 16,
           src_rect = { x = 0, y = 0 },

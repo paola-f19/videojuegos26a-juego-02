@@ -50,7 +50,7 @@ class ItemPickupSystem : public System {
     }
 
     void TryPickup(Entity player, Entity itemEntity) {
-      std::cout << "TRYPICKUP" << std::endl;
+      // std::cout << "TRYPICKUP" << std::endl;
       auto& inventory = player.GetComponent<InventoryComponent>();
       auto& item = itemEntity.GetComponent<ItemComponent>();
 
