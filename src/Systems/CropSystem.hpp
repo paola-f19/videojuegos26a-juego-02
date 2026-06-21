@@ -167,13 +167,30 @@ class CropSystem : public System {
       farmPlot.plantedCropEntity = Entity(-1);
     }
 
+    void WaterCrop(Entity plot) {
+      auto& farmPlot = plot.GetComponent<FarmPlotComponent>();
+
+      if (!farmPlot.occupied)
+        return;
+
+      Entity crop = farmPlot.plantedCropEntity;
+
+      auto& cropComponent = crop.GetComponent<CropComponent>();
+
+      cropComponent.watered = true;
+
+      std::cout << "Crop watered!" << std::endl;
+    }
+
     void Update(float deltaTime) {
       for (auto crop : GetSystemEntities()) {
 
         auto& cropComponent = crop.GetComponent<CropComponent>();
 
         if (!cropComponent.harvestable) {
-          cropComponent.growthTimer += deltaTime;
+          if (cropComponent.watered) {
+            cropComponent.growthTimer += deltaTime;
+          }
 
           if (cropComponent.growthTimer >= cropComponent.growthTime) {
             cropComponent.harvestable = true;

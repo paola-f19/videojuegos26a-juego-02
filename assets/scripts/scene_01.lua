@@ -11,6 +11,7 @@ scene = {
     {assetId = "berry", filePath = "./assets/images/berry.png"},
     {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
     {assetId = "sickle", filePath = "./assets/images/sickle.png"},
+    {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
 
@@ -154,6 +155,7 @@ scene = {
   items =  {
     [0] = 
     {id = "sickle", texture = "sickle", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "watering_can", texture = "watering_can", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
@@ -296,10 +298,10 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         item = {
-          id = "bamboo"
+          id = "watering_can"
         },
         sprite = {
-          assetId = "bamboo",
+          assetId = "watering_can",
           width = 16,
           height = 16,
           src_rect = { x = 0, y = 0 },

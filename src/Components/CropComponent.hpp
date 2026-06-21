@@ -8,6 +8,7 @@ struct CropComponent {
   float growthTimer;
   float growthTime;
   bool harvestable;
+  bool watered = false;
 
   // growth visuals
   int growthStages = 6;

@@ -83,6 +83,16 @@ class InventorySystem : public System {
         return;
       }
 
+      if (item.id == "watering_can") {
+        if (playerComponent.currentFarmPlot.GetId() == -1)
+          return;
+
+        Game::GetInstance().registry->GetSystem<CropSystem>().WaterCrop(
+          playerComponent.currentFarmPlot);
+
+        return;
+      }
+
       // PLANTING
 
       if (isSeed(item.id)) {

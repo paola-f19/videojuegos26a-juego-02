@@ -91,13 +91,9 @@ class BoxCollisionSystem : public System {
     }
 
     void HandleFarmPlotDetection(Entity player, Entity farmPlot)  {
-      std::cout << "Farm plot detected!" << std::endl;
-
+      // std::cout << "Farm plot detected!" << std::endl;
       auto& playerComponent = player.GetComponent<PlayerComponent>();
-
       playerComponent.currentFarmPlot = farmPlot;
-
-      // Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(farmPlot, "bamboo");
     }
 
   public:
