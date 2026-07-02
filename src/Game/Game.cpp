@@ -6,6 +6,7 @@
 #include "../Events/KeyEvent.hpp"
 
 #include "../Systems/AnimationSystem.hpp"
+#include "../Systems/AnimalProductionSystem.hpp"
 #include "../Systems/AttackSystem.hpp"
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
@@ -122,6 +123,7 @@ void Game::Init() {
 
 void Game::SetUp() {
   registry->AddSystem<AnimationSystem>();
+  registry->AddSystem<AnimalProductionSystem>();
   registry->AddSystem<AttackSystem>();
   registry->AddSystem<BoxCollisionSystem>();
   registry->AddSystem<CameraMovementSystem>();
@@ -269,6 +271,8 @@ void Game::Update() {
     registry->GetSystem<AnimationSystem>().Update(animationManager);
     registry->GetSystem<CameraMovementSystem>().Update(camera);
     registry->GetSystem<UISystem>().Update(camera);
+
+    registry->GetSystem<AnimalProductionSystem>().Update(deltaTime);
   }
 }
 
