@@ -11,6 +11,7 @@ scene = {
     {assetId = "berry", filePath = "./assets/images/berry.png"},
     {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
     {assetId = "sickle", filePath = "./assets/images/sickle.png"},
+    {assetId = "slime_idle", filePath = "./assets/images/slime_idle.png"},
     {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
@@ -76,6 +77,16 @@ scene = {
       h = 32,
       num_frames = 3,
       speed_rate = 15,
+      is_loop = true,
+    },
+    {
+      animation_id = "slime_idle",
+      texture_id = "slime_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
       is_loop = true,
     },
     -- attacks
@@ -424,6 +435,57 @@ scene = {
           bgColor = { r = 60, g = 60, b = 60, a = 255 },
           type = "sanity"
         }, 
+      },
+    },
+    {
+      components = {
+        animation = {
+          id = "slime_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "berry",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 40
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 10,
+        },
+        script = {
+          path = "./assets/scripts/slime_leader.lua",
+        },
+        sprite = {
+          assetId = "slime_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_slime",
+        },
+        transform = {
+          position = { x = 465.0, y = 300.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
       },
     },
   },
