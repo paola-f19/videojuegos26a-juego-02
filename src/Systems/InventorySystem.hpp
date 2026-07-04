@@ -114,6 +114,12 @@ class InventorySystem : public System {
         return;
       }
 
+      // DELIVER ITEMS
+      if(playerComponent.currentDeliveryZone.GetId() != -1) {
+        DeliverItem(slot);
+        return;
+      }
+
       // remove item
       // if (item.consumable) {
       //   slot.itemId = "none";
@@ -169,6 +175,30 @@ class InventorySystem : public System {
   private:
     bool isSeed(const std::string& itemId) {
       return itemId.size() >= 6 && itemId.substr(itemId.size() - 6) == "_seeds";
+    }
+
+    void DeliverItem(InventorySlot& slot) {
+      auto& order = Game::GetInstance().orderManager->order;
+
+      for (auto& requirement : order) {
+        if(requirement.itemId == slot.itemId) {
+          if(requirement.delivered < requirement.required) {
+            requirement.delivered++;
+
+            slot.itemId = "none";
+
+            std::cout << "Delivered " << requirement.itemId << std::endl;
+          }
+          break;
+        }
+      }
+
+      if(Game::GetInstance().orderManager->IsComplete()) {
+        // win
+        std::cout << "LEVEL COMPLETE" << std::endl;
+        Game::GetInstance().sceneManager->SetNextScene("win");
+        Game::GetInstance().sceneManager->StopScene();
+      }
     }
 };
 

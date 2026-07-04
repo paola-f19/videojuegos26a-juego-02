@@ -43,6 +43,7 @@ Game::Game() {
   controllerManager = std::make_unique<ControllerManager>();
   eventManager = std::make_unique<EventManager>();
   itemManager = std::make_unique<ItemManager>();
+  orderManager = std::make_unique<OrderManager>();
   registry = std::make_unique<Registry>();
   sceneManager = std::make_unique<SceneManager>();
 }
@@ -54,6 +55,7 @@ Game::~Game() {
   controllerManager.reset();
   eventManager.reset();
   itemManager.reset();
+  orderManager.reset();
   registry.reset();
   sceneManager.reset();
 
@@ -251,6 +253,7 @@ void Game::Update() {
       registry->GetSystem<PlayerSystem>().GetPlayerTransform();
 
     registry->GetSystem<PlayerSystem>().ClearCurrentFarmPlot();
+    registry->GetSystem<PlayerSystem>().ClearDeliveryZone();
 
     registry->GetSystem<PhysicsSystem>().Update();
     registry->GetSystem<MovementSystem>().Update(deltaTime);
@@ -305,6 +308,8 @@ void Game::RunScene() {
   registry->ClearAllEntities();
   assetManager->ClearAssets();
   audioManager->ClearAudio();
+  itemManager->ClearItems();
+  orderManager->ClearOrder();
 
   // reset win condition
   this->buttonCount = 2;

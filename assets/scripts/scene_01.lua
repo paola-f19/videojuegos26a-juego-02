@@ -178,6 +178,12 @@ scene = {
     {id = "seed_pouch", texture = "0_farming_props", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 48 }},
   },
 
+  -- Tabla de ordenes
+  orders = {
+    [0] =
+    {item = "berry", quantity = 1},
+  },
+
   -- Tabla de entidades
   entities = {
     [0] =

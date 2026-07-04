@@ -56,6 +56,12 @@ class PlayerSystem : public System {
 
       playerComponent.currentFarmPlot = Entity(-1);
     }
+
+    void ClearDeliveryZone() {
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+
+      playerComponent.currentDeliveryZone = Entity(-1);
+    }
 };
 
 #endif 

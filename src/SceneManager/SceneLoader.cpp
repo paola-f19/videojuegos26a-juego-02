@@ -11,6 +11,7 @@
 #include "../Components/ClickableComponent.hpp"
 #include "../Components/ConsumableComponent.hpp"
 #include "../Components/DamageComponent.hpp"
+#include "../Components/DeliveryZoneComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
 #include "../Components/FarmPlotComponent.hpp"
@@ -49,6 +50,7 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   , std::unique_ptr<AudioManager>& audioManager
   , std::unique_ptr<ControllerManager>& controllerManager
   , std::unique_ptr<ItemManager>& itemManager
+  , std::unique_ptr<OrderManager>& orderManager
   , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer) {
   
   sol::load_result script_result = lua.load_file(scenePath);
@@ -94,6 +96,10 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   sol::table buttons = scene["buttons"];
   LoadButtons(buttons, controllerManager);
   std::cout << " [SCENELOADER] loaded buttons" << std::endl;
+
+  sol::table orders = scene["orders"];
+  LoadOrders(orders, orderManager);
+  std::cout << " [SCENELOADER] loaded orders" << std::endl;
 
   sol::table maps = scene["maps"];
   LoadMap(maps, registry);
@@ -275,6 +281,26 @@ void SceneLoader::LoadButtons(const sol::table& buttons
     index++;
   }
 }
+
+  void SceneLoader::LoadOrders(const sol::table& orders
+    , std::unique_ptr<OrderManager>& orderManager) {
+    int index = 0;
+    while (true) {
+      sol::optional<sol::table> hasOrders = orders[index];
+      if (hasOrders == sol::nullopt) {
+        break;
+      }
+
+      sol::table order = orders[index];
+
+      std::string item = order["item"];
+      int quantity = order["quantity"];
+
+      orderManager->order.push_back({item, quantity, 0});
+
+      index++;
+    }
+  }
 
 void SceneLoader::LoadMap(const sol::table map,
   std::unique_ptr<Registry>& registry) {
@@ -476,8 +502,14 @@ void SceneLoader::LoadColliders(std::unique_ptr<Registry>& registry
     collider.AddComponent<TagComponent>(tag);
     collider.AddComponent<TransformComponent>(glm::vec2(x, y));
     collider.AddComponent<BoxColliderComponent>(w, h);
-    collider.AddComponent<RigidBodyComponent>(false, true, 9999999999.0f);
     collider.AddComponent<LayerComponent>(layer);
+
+    if (tag == "delivery") {
+      std::cout << "DELIVERY ZONE SET" << std::endl;
+      collider.AddComponent<DeliveryZoneComponent>();
+    } else {
+      collider.AddComponent<RigidBodyComponent>(false, true, 9999999999.0f);
+    }
 
     object = object->NextSiblingElement("object");
   }

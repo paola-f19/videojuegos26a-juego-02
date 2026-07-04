@@ -43,6 +43,10 @@ scene = {
   -- Tabla de mapa
   maps = {},
 
+  items = {},
+
+  orders = {},
+
   -- Tabla de entidades
   entities = {
     [0] =
@@ -161,6 +165,19 @@ scene = {
           width = 200,
           height = 40,
           color = { r = 245, g = 245, b = 245, a = 245 },
+        },
+      },
+    },
+    {
+      components = {
+        player = {},
+        tag = {
+          tag = "player",
+        },
+        transform = {
+          position = { x = 465.0, y = 200.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
         },
       },
     },

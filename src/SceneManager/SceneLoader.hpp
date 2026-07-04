@@ -14,6 +14,7 @@
 #include "../ControllerManager/ControllerManager.hpp"
 #include "../ECS/ECS.hpp"
 #include "../ItemManager/ItemManager.hpp"
+#include "../OrderManager/OrderManager.hpp"
 
 /**
  * @brief Stores tileset metadata used for tilemap loading.
@@ -96,6 +97,9 @@ class SceneLoader {
     void LoadButtons(const sol::table& buttons
       , std::unique_ptr<ControllerManager>& controllerManager);
 
+    void LoadOrders(const sol::table& orders
+      , std::unique_ptr<OrderManager>& orderManager);
+
     /**
      * @brief Loads scene entities and components.
      *
@@ -171,6 +175,7 @@ class SceneLoader {
       , std::unique_ptr<AudioManager>& audioManager
       , std::unique_ptr<ControllerManager>& controllerManager
       , std::unique_ptr<ItemManager>& itemManager
+      , std::unique_ptr<OrderManager>& orderManager
       , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer);
 };
 
