@@ -4,12 +4,20 @@ scene = {
   sprites = {
     [0] =
     {assetId = "0_floor", filePath = "./assets/images/floors.png"},
+    {assetId = "0_ranch_props", filePath = "./assets/images/ranch_props.png"},
+    {assetId = "0_farming_props", filePath = "./assets/images/farming_props.png"},
     {assetId = "farmer_idle", filePath = "./assets/images/farmer_idle.png"},
     {assetId = "farmer_walk", filePath = "./assets/images/farmer_walk.png"},
     {assetId = "player", filePath = "./assets/images/player.png"},
     {assetId = "bamboo", filePath = "./assets/images/bamboo.png"},
     {assetId = "berry", filePath = "./assets/images/berry.png"},
     {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
+    {assetId = "carrot", filePath = "./assets/images/carrot.png"},
+    {assetId = "carrot_seeds", filePath = "./assets/images/carrot_seeds.png"},
+    {assetId = "radish", filePath = "./assets/images/radish.png"},
+    {assetId = "radish_seeds", filePath = "./assets/images/radish_seeds.png"},
+    {assetId = "pumpkin", filePath = "./assets/images/pumpkin.png"},
+    {assetId = "pumpkin_seeds", filePath = "./assets/images/pumpkin_seeds.png"},
     {assetId = "sickle", filePath = "./assets/images/sickle.png"},
     {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
@@ -148,6 +156,8 @@ scene = {
     tilesets = {
       [0] =
       {name = "0_floor", path = "./assets/maps/floors.tsx"},
+      {name = "0_ranch_props", path = "./assets/maps/ranch_props.tsx"},
+      {name = "0_farming_props", path = "./assets/maps/farming_props.tsx"},
     },
   },
 
@@ -159,6 +169,13 @@ scene = {
     {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "carrot", texture = "carrot", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
+    {id = "carrot_seeds", texture = "carrot_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "radish", texture = "radish", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
+    {id = "radish_seeds", texture = "radish_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "pumpkin", texture = "pumpkin", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
+    {id = "pumpkin_seeds", texture = "pumpkin_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "seed_pouch", texture = "0_farming_props", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 48 }},
   },
 
   -- Tabla de entidades
@@ -323,17 +340,17 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         item = {
-          id = "berry_seeds"
+          id = "seed_pouch"
         },
         sprite = {
-          assetId = "berry_seeds",
+          assetId = "0_farming_props",
           width = 16,
           height = 16,
-          src_rect = { x = 0, y = 0 },
+          src_rect = { x = 0, y = 48 },
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x = 450.0, y = 250.0 },
+          position = { x = 400.0, y = 220.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },

@@ -511,7 +511,7 @@ void SceneLoader::LoadFarmPlots(std::unique_ptr<Registry>& registry
     collider.AddComponent<TagComponent>(tag);
     collider.AddComponent<TransformComponent>(glm::vec2(x, y));
     collider.AddComponent<BoxColliderComponent>(w, h);
-    collider.AddComponent<FarmPlotComponent>();
+    collider.AddComponent<FarmPlotComponent>(tag);
 
     object = object->NextSiblingElement("object");
   }

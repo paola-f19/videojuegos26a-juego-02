@@ -95,7 +95,7 @@ class InventorySystem : public System {
 
       // PLANTING
 
-      if (isSeed(item.id)) {
+      if (item.id == "seed_pouch") {
         if (playerComponent.currentFarmPlot.GetId() == -1) {
           std::cout << "NO FARM PLOT DETECTED" << std::endl;
           return;
@@ -109,11 +109,8 @@ class InventorySystem : public System {
 
         Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(
           playerComponent.currentFarmPlot,
-          item.id
+          farmPlot.cropId + "_seeds"
         );
-
-        slot.itemId = "none";
-
         return;
       }
 
