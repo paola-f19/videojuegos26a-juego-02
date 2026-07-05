@@ -45,6 +45,11 @@ class InventorySystem : public System {
      * @param e Click event data.
      */
     void OnClickEvent(ClickEvent& e) {
+
+      if (GetSystemEntities().empty()) {
+          return;
+      }
+
       UseSlot(e.buttonCode);
     }
 

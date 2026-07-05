@@ -52,7 +52,7 @@ scene = {
             a = 255,
         },
         transform = {
-            position = { x = 40.0, y = 80.0 },
+            position = { x = 80.0, y = 80.0 },
             scale = { x = 1.0, y = 1.0},
             rotation = 0.0,
         },
@@ -75,7 +75,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 100.0, y = 170.0 },
+          position = { x = 140.0, y = 170.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -84,19 +84,6 @@ scene = {
           width = 200,
           height = 40,
           color = { r = 245, g = 245, b = 245, a = 245 },
-        },
-      },
-    },
-    {
-      components = {
-        player = {},
-        tag = {
-          tag = "player",
-        },
-        transform = {
-          position = { x = 465.0, y = 200.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
         },
       },
     },

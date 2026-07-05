@@ -53,7 +53,7 @@ scene = {
     {
       components = {
         text = {
-          text = "Inderdimensional",
+          text = "A Refuge for",
           fontId = "press_start_24",
           r = 255,
           g = 255,
@@ -70,7 +70,7 @@ scene = {
     {
       components = {
         text = {
-          text = "Fixer",
+          text = "Animals Abandoned by",
           fontId = "press_start_24",
           r = 255,
           g = 255,
@@ -79,6 +79,23 @@ scene = {
         },
         transform = {
           position = { x = 10.0, y = 60.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    {
+      components = {
+        text = {
+          text = "Other Dimensions",
+          fontId = "press_start_24",
+          r = 255,
+          g = 255,
+          b = 255,
+          a = 255,
+        },
+        transform = {
+          position = { x = 10.0, y = 90.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -100,7 +117,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 180.0, y = 120.0 },
+          position = { x = 10.0, y = 150.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -128,7 +145,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 180.0, y = 180.0 },
+          position = { x = 10.0, y = 200.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -140,45 +157,37 @@ scene = {
         },
       },
     },
-    -- Level 03 button
-    {
-      components = {
-        clickable = {},
-        script = {
-          path = "./assets/scripts/menu_button_03.lua",
-        },
-        text = {
-          text = "Level 03",
-          fontId = "press_start_16",
-          r = 0,
-          g = 0,
-          b = 0,
-          a = 0,
-        },
-        transform = {
-          position = { x = 180.0, y = 240.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
-        ui = {},
-        ui_rect = {
-          width = 200,
-          height = 40,
-          color = { r = 245, g = 245, b = 245, a = 245 },
-        },
-      },
-    },
+    -- -- Level 03 button
+    -- {
+    --   components = {
+    --     clickable = {},
+    --     script = {
+    --       path = "./assets/scripts/menu_button_03.lua",
+    --     },
+    --     text = {
+    --       text = "Level 03",
+    --       fontId = "press_start_16",
+    --       r = 0,
+    --       g = 0,
+    --       b = 0,
+    --       a = 0,
+    --     },
+    --     transform = {
+    --       position = { x = 180.0, y = 240.0 },
+    --       scale = { x = 1.0, y = 1.0 },
+    --       rotation = 0.0,
+    --     },
+    --     ui = {},
+    --     ui_rect = {
+    --       width = 200,
+    --       height = 40,
+    --       color = { r = 245, g = 245, b = 245, a = 245 },
+    --     },
+    --   },
+    -- },
     {
       components = {
         player = {},
-        tag = {
-          tag = "player",
-        },
-        transform = {
-          position = { x = 465.0, y = 200.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
       },
     },
   },

@@ -133,7 +133,12 @@ scene = {
   music = {},
 
   -- Tabla de fuentes
-  fonts = {},
+  fonts = {
+    [0] = 
+    {fontId = "press_start_8", filePath = "./assets/fonts/press_start.ttf", fontSize = 8},
+    {fontId = "press_start_16", filePath = "./assets/fonts/press_start.ttf", fontSize = 16},
+    {fontId = "press_start_24", filePath = "./assets/fonts/press_start.ttf", fontSize = 24},
+  },
 
   -- Tabla de acciones y teclas
   keys = {
@@ -182,6 +187,9 @@ scene = {
   orders = {
     [0] =
     {item = "berry", quantity = 1},
+    {item = "carrot", quantity = 1},
+    {item = "radish", quantity = 1},
+    {item = "pumpkin", quantity = 1},
   },
 
   -- Tabla de entidades
