@@ -5,6 +5,7 @@
 
 #include "../Components/AnimationComponent.hpp"
 #include "../Components/AttackComponent.hpp"
+#include "../Components/AnimalLeaderComponent.hpp"
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/CameraFollowComponent.hpp"
 #include "../Components/CircleColliderComponent.hpp"
@@ -924,6 +925,33 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         std::cout << "  [LOAD ENTITIES] loaded script" << std::endl;
 
         newEntity.AddComponent<ScriptComponent>(onCollision, onClick, update, startAttack);
+      }
+
+      // AnimalLeaderComponent
+      sol::optional<sol::table> hasAnimalLeader = components["animal_leader"];
+      if (hasAnimalLeader != sol::nullopt) {
+        std::string productId = components["animal_leader"]["product_id"];
+        float maxHappiness = components["animal_leader"]["max_happiness"];
+        float currentHappiness = components["animal_leader"]["current_happiness"];
+        float maxHunger = components["animal_leader"]["max_hunger"];
+        float currentHunger = components["animal_leader"]["current_hunger"];
+        float maxCleanliness = components["animal_leader"]["max_cleanliness"];
+        float currentCleanliness = components["animal_leader"]["current_cleanliness"];
+        int count = components["animal_leader"]["count"];
+        float productionInterval = components["animal_leader"]["production_interval"];
+        float decayRate = components["animal_leader"]["decay_rate"];
+        float threshold = components["animal_leader"]["threshold"];
+        
+        newEntity.AddComponent<AnimalLeaderComponent>(
+          productId,
+          maxHappiness, currentHappiness,
+          maxHunger, currentHunger,
+          maxCleanliness, currentCleanliness,
+          count,
+          productionInterval,
+          decayRate,
+          threshold
+        );
       }
     }
 
