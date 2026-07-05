@@ -2,8 +2,6 @@
 #define PLAYERSYSTEM_HPP
 
 #include "../Components/PlayerComponent.hpp"
-#include "../Components/TagComponent.hpp"
-#include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 
 /**
@@ -11,8 +9,8 @@
  */
 class PlayerSystem : public System {
   private:
-    TransformComponent* playerTransform;
     Entity player{-1};
+    bool hasPlayer = false;
 
   public:
     /**
@@ -20,26 +18,24 @@ class PlayerSystem : public System {
      */
     PlayerSystem() {
       RequireComponent<PlayerComponent>();
-      RequireComponent<TagComponent>();
-      RequireComponent<TransformComponent>();
     }
 
     /**
      * @brief Searches for the player entity.
      */
     void Update() {
+      hasPlayer = false;
+      this->player = Entity{-1};
+      
       for (auto entity : GetSystemEntities()) {
         this->player = entity;
+        hasPlayer = true;
+        break;
       }
     }
 
-    /**
-     * @brief Returns the player's transform component.
-     *
-     * @return Reference to the player's transform.
-     */
-    TransformComponent& GetPlayerTransform() const {
-      return *playerTransform;
+    bool HasPlayer() const {
+      return hasPlayer;
     }
 
     /**
@@ -55,6 +51,12 @@ class PlayerSystem : public System {
       auto& playerComponent = player.GetComponent<PlayerComponent>();
 
       playerComponent.currentFarmPlot = Entity(-1);
+    }
+
+    void ClearDeliveryZone() {
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+
+      playerComponent.currentDeliveryZone = Entity(-1);
     }
 };
 

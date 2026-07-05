@@ -27,6 +27,7 @@
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/PlayerSystem.hpp"
 #include "../Systems/RenderBoxColliderSystem.hpp"
+#include "../Systems/RenderOrderUISystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/RenderTextSystem.hpp"
 #include "../Systems/RenderUISystem.hpp"
@@ -44,6 +45,7 @@ Game::Game() {
   controllerManager = std::make_unique<ControllerManager>();
   eventManager = std::make_unique<EventManager>();
   itemManager = std::make_unique<ItemManager>();
+  orderManager = std::make_unique<OrderManager>();
   registry = std::make_unique<Registry>();
   sceneManager = std::make_unique<SceneManager>();
 }
@@ -55,6 +57,7 @@ Game::~Game() {
   controllerManager.reset();
   eventManager.reset();
   itemManager.reset();
+  orderManager.reset();
   registry.reset();
   sceneManager.reset();
 
@@ -144,6 +147,7 @@ void Game::SetUp() {
   registry->AddSystem<PhysicsSystem>();
   registry->AddSystem<PlayerSystem>();
   registry->AddSystem<RenderBoxColliderSystem>();
+  registry->AddSystem<RenderOrderUISystem>();
   registry->AddSystem<RenderSystem>();
   registry->AddSystem<RenderTextSystem>();
   registry->AddSystem<RenderUISystem>();
@@ -249,14 +253,14 @@ void Game::Update() {
     registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
 
     registry->GetSystem<PlayerSystem>().Update();
-    TransformComponent& playerTransform = 
-      registry->GetSystem<PlayerSystem>().GetPlayerTransform();
-
-    registry->GetSystem<PlayerSystem>().ClearCurrentFarmPlot();
+    if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
+        registry->GetSystem<PlayerSystem>().ClearCurrentFarmPlot();
+        registry->GetSystem<PlayerSystem>().ClearDeliveryZone();
+    }
 
     registry->GetSystem<PhysicsSystem>().Update();
     registry->GetSystem<MovementSystem>().Update(deltaTime);
-    registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
+    // registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
     registry->GetSystem<PatrolSystem>().Update(deltaTime);
     registry->GetSystem<WanderSystem>().Update(deltaTime);
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
@@ -269,7 +273,9 @@ void Game::Update() {
     registry->GetSystem<AttackSystem>().Update(deltaTime);
 
     registry->GetSystem<AnimationSystem>().Update(animationManager);
-    registry->GetSystem<CameraMovementSystem>().Update(camera);
+    if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
+      registry->GetSystem<CameraMovementSystem>().Update(camera);
+    }
     registry->GetSystem<UISystem>().Update(camera);
 
     registry->GetSystem<AnimalProductionSystem>().Update(deltaTime);
@@ -280,12 +286,14 @@ void Game::Render() {
   SDL_SetRenderDrawColor(renderer, 31, 31, 31, 255);
   SDL_RenderClear(renderer);
 
-  Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
-
   registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
   registry->GetSystem<RenderUISystem>().Update(renderer);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
-  registry->GetSystem<BarSystem>().Update(renderer, player);
+  registry->GetSystem<RenderOrderUISystem>().Update(renderer, assetManager);
+  if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
+    Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
+    registry->GetSystem<BarSystem>().Update(renderer, player);
+  }
   registry->GetSystem<InventoryUISystem>().Update(renderer, assetManager
     , itemManager);
   registry->GetSystem<UISystem>().Update(camera);
@@ -309,6 +317,8 @@ void Game::RunScene() {
   registry->ClearAllEntities();
   assetManager->ClearAssets();
   audioManager->ClearAudio();
+  itemManager->ClearItems();
+  orderManager->ClearOrder();
 
   // reset win condition
   this->buttonCount = 2;

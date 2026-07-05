@@ -4,16 +4,10 @@ scene = {
   sprites = {},
 
   -- Tabla con la info de las animaciones
-  animations = {
-  },
+  animations = {},
 
   -- Tabla de efectos de sonido
-  sounds = {
-    [0] =
-    {id = "slash", filePath = "./assets/audio/Slash.wav"},
-    {id = "hurt", filePath = "./assets/audio/Impact2.wav"},
-    {id = "restore", filePath = "./assets/audio/Strange.wav"},
-  },
+  sounds = {},
 
   -- Tabla de musica
   music = {},
@@ -26,8 +20,7 @@ scene = {
   },
 
   -- Tabla de acciones y teclas
-  keys = {
-  },
+  keys = {},
 
   -- Tabla de acciones y botones de raton
   buttons = {
@@ -36,8 +29,13 @@ scene = {
   },
 
   -- Tabla de mapa
-  maps = {
-  },
+  maps = {},
+
+  -- Tabla de items
+  items = {},
+
+  -- Tabla de ordenes
+  orders = {},
 
   -- Tabla de entidades
   entities = {
@@ -54,7 +52,7 @@ scene = {
             a = 255,
         },
         transform = {
-            position = { x = 40.0, y = 80.0 },
+            position = { x = 80.0, y = 80.0 },
             scale = { x = 1.0, y = 1.0},
             rotation = 0.0,
         },
@@ -77,7 +75,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 100.0, y = 170.0 },
+          position = { x = 140.0, y = 170.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },

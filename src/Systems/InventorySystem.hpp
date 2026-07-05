@@ -45,6 +45,11 @@ class InventorySystem : public System {
      * @param e Click event data.
      */
     void OnClickEvent(ClickEvent& e) {
+
+      if (GetSystemEntities().empty()) {
+          return;
+      }
+
       UseSlot(e.buttonCode);
     }
 
@@ -95,7 +100,7 @@ class InventorySystem : public System {
 
       // PLANTING
 
-      if (isSeed(item.id)) {
+      if (item.id == "seed_pouch") {
         if (playerComponent.currentFarmPlot.GetId() == -1) {
           std::cout << "NO FARM PLOT DETECTED" << std::endl;
           return;
@@ -109,11 +114,14 @@ class InventorySystem : public System {
 
         Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(
           playerComponent.currentFarmPlot,
-          item.id
+          farmPlot.cropId + "_seeds"
         );
+        return;
+      }
 
-        slot.itemId = "none";
-
+      // DELIVER ITEMS
+      if(playerComponent.currentDeliveryZone.GetId() != -1) {
+        DeliverItem(slot);
         return;
       }
 
@@ -172,6 +180,30 @@ class InventorySystem : public System {
   private:
     bool isSeed(const std::string& itemId) {
       return itemId.size() >= 6 && itemId.substr(itemId.size() - 6) == "_seeds";
+    }
+
+    void DeliverItem(InventorySlot& slot) {
+      auto& order = Game::GetInstance().orderManager->order;
+
+      for (auto& requirement : order) {
+        if(requirement.itemId == slot.itemId) {
+          if(requirement.delivered < requirement.required) {
+            requirement.delivered++;
+
+            slot.itemId = "none";
+
+            std::cout << "Delivered " << requirement.itemId << std::endl;
+          }
+          break;
+        }
+      }
+
+      if(Game::GetInstance().orderManager->IsComplete()) {
+        // win
+        std::cout << "LEVEL COMPLETE" << std::endl;
+        Game::GetInstance().sceneManager->SetNextScene("win");
+        Game::GetInstance().sceneManager->StopScene();
+      }
     }
 };
 

@@ -6,6 +6,7 @@
 
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/ConsumableComponent.hpp"
+#include "../Components/DeliveryZoneComponent.hpp"
 #include "../Components/FarmPlotComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
@@ -94,6 +95,12 @@ class BoxCollisionSystem : public System {
       // std::cout << "Farm plot detected!" << std::endl;
       auto& playerComponent = player.GetComponent<PlayerComponent>();
       playerComponent.currentFarmPlot = farmPlot;
+    }
+
+    void HandleDeliveryZoneDetection(Entity player, Entity deliveryZone)  {
+      // std::cout << "Delivery zone detected!" << std::endl;
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+      playerComponent.currentDeliveryZone = deliveryZone;
     }
 
   public:
@@ -192,6 +199,19 @@ class BoxCollisionSystem : public System {
               a.HasComponent<FarmPlotComponent>())
             {
               HandleFarmPlotDetection(b, a);
+            }
+
+            // Delivery zone detection
+            if (a.HasComponent<PlayerComponent>() &&
+              b.HasComponent<DeliveryZoneComponent>())
+            {
+              HandleDeliveryZoneDetection(a, b);
+            }
+
+            if (b.HasComponent<PlayerComponent>() &&
+              a.HasComponent<DeliveryZoneComponent>())
+            {
+              HandleDeliveryZoneDetection(b, a);
             }
           }
         }
