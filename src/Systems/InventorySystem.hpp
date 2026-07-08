@@ -18,6 +18,39 @@
 #include "../Game/Game.hpp"
 
 class InventorySystem : public System {
+  private:
+  void SpawnItem(const std::string& itemId, const glm::vec2& position) {
+    auto& registry = *Game::GetInstance().registry;
+    auto& itemManager = *Game::GetInstance().itemManager;
+    
+    const auto& item = itemManager.GetItem(itemId);
+    
+    Entity newItem = registry.CreateEntity();
+    
+    newItem.AddComponent<TransformComponent>(
+      position,
+      glm::vec2(1.0f, 1.0f),
+      0.0f
+    );
+    
+    newItem.AddComponent<SpriteComponent>(
+      item.id,
+      item.width,
+      item.height,
+      item.srcRect.x,
+      item.srcRect.y,
+      glm::vec2(0, 0)
+    );
+    
+    newItem.AddComponent<ItemComponent>(item.id);
+    
+    newItem.AddComponent<BoxColliderComponent>(
+      item.width,
+      item.height,
+      glm::vec2(0, 0)
+    );
+  }
+
   public:
     InventorySystem() {
       RequireComponent<InventoryComponent>();
@@ -145,7 +178,7 @@ class InventorySystem : public System {
         return;
       }
 
-      // Need to add other food
+      // BERRY
       if (item.id == "berry") {
         if (playerComponent.currentAnimalContact.GetId() == -1) return;
         
@@ -153,16 +186,146 @@ class InventorySystem : public System {
         
         //Need to add other animals tag
         if (animal.HasComponent<TagComponent>() && 
-            animal.GetComponent<TagComponent>().tag == "animal_slime") {
+            (animal.GetComponent<TagComponent>().tag == "animal_slime"
+            || animal.GetComponent<TagComponent>().tag == "animal_bird"
+            || animal.GetComponent<TagComponent>().tag == "animal_beast")) {
           
           auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
-          animalStats.currentHunger = std::min(animalStats.maxHunger, animalStats.currentHunger + 20);
+          animalStats.currentHunger = animalStats.maxHunger;
+          //animalStats.currentHunger = std::min(animalStats.maxHunger, animalStats.currentHunger + 20);
           
           slot.itemId = "none";
           std::cout << "🍓 Slime alimentado!" << std::endl;
         } else {
           std::cout << "❌ Esto no es un slime!" << std::endl;
         }
+        return;
+      }
+
+      // CARROT
+      if (item.id == "carrot") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            (animal.GetComponent<TagComponent>().tag == "animal_bird"
+            || animal.GetComponent<TagComponent>().tag == "animal_slime")) {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = animalStats.maxHunger;
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
+        return;
+      }
+
+      // RADDISH
+      if (item.id == "radish") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            (animal.GetComponent<TagComponent>().tag == "animal_sugarcane"
+            || animal.GetComponent<TagComponent>().tag == "animal_bird"
+            || animal.GetComponent<TagComponent>().tag == "animal_mollusc")) {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = animalStats.maxHunger;
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
+        return;
+      }
+
+      // PUMPKIN
+      if (item.id == "pumpkin") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            (animal.GetComponent<TagComponent>().tag == "animal_bird"
+            || animal.GetComponent<TagComponent>().tag == "animal_beast"))  {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = animalStats.maxHunger;
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
+        return;
+      }
+
+      // SUGAR CANE
+      if (item.id == "sugarcane_product") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            animal.GetComponent<TagComponent>().tag == "animal_dragon") {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = animalStats.maxHunger;
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
+        return;
+      }
+
+      // MOLLUSC
+      if (item.id == "meat") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            animal.GetComponent<TagComponent>().tag == "animal_trex") {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = animalStats.maxHunger;
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
+        return;
+      }
+
+      if (item.id == "knife") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        auto& transform = animal.GetComponent<TransformComponent>();
+
+        SpawnItem("meat", transform.position);
+        SpawnItem("meat", transform.position);
+        SpawnItem("meat", transform.position);
+        
+        animal.Kill();
+        
+        slot.itemId = "none";
+        std::cout << "Animal sacrificado!" << std::endl;
         return;
       }
 

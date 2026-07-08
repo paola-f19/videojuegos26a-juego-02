@@ -12,10 +12,20 @@ scene = {
     {assetId = "bamboo", filePath = "./assets/images/bamboo.png"},
     {assetId = "berry", filePath = "./assets/images/berry.png"},
     {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
+    {assetId = "beast_idle", filePath = "./assets/images/beast_idle.png"},
+    {assetId = "beast_product", filePath = "./assets/images/beast_product.png"},
+    {assetId = "bird_idle", filePath = "./assets/images/bird_idle.png"},
+    {assetId = "bird_product", filePath = "./assets/images/bird_product.png"},
     {assetId = "carrot", filePath = "./assets/images/carrot.png"},
     {assetId = "carrot_seeds", filePath = "./assets/images/carrot_seeds.png"},
+    {assetId = "dragon_idle", filePath = "./assets/images/dragon_idle.png"},
+    {assetId = "dragon_product", filePath = "./assets/images/dragon_product.png"},
     {assetId = "cleaning_kit", filePath = "./assets/images/cleaning_kit.png"},
+    {assetId = "knife", filePath = "./assets/images/knife.png"},
     {assetId = "guide_glove", filePath = "./assets/images/glove.png"},
+    {assetId = "meat", filePath = "./assets/images/meat.png"},
+    {assetId = "mollusc_idle", filePath = "./assets/images/mollusc_idle.png"},
+    {assetId = "mollusc_product", filePath = "./assets/images/mollusc_product.png"},
     {assetId = "radish", filePath = "./assets/images/radish.png"},
     {assetId = "radish_seeds", filePath = "./assets/images/radish_seeds.png"},
     {assetId = "pumpkin", filePath = "./assets/images/pumpkin.png"},
@@ -23,6 +33,10 @@ scene = {
     {assetId = "sickle", filePath = "./assets/images/sickle.png"},
     {assetId = "slime_idle", filePath = "./assets/images/slime_idle.png"},
     {assetId = "slime_product", filePath = "./assets/images/spit.png"},
+    {assetId = "sugarcane_idle", filePath = "./assets/images/sugarcane_idle.png"},
+    {assetId = "sugarcane_product", filePath = "./assets/images/sugarcane_product.png"},
+    {assetId = "trex_idle", filePath = "./assets/images/trex_idle.png"},
+    {assetId = "trex_product", filePath = "./assets/images/trex_product.png"},
     {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
@@ -91,8 +105,68 @@ scene = {
       is_loop = true,
     },
     {
+      animation_id = "beast_idle",
+      texture_id = "beast_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
+      animation_id = "bird_idle",
+      texture_id = "bird_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
+      animation_id = "dragon_idle",
+      texture_id = "dragon_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
+      animation_id = "mollusc_idle",
+      texture_id = "mollusc_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
       animation_id = "slime_idle",
       texture_id = "slime_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
+      animation_id = "sugarcane_idle",
+      texture_id = "sugarcane_idle",
+      row = 0,
+      w = 16,
+      h = 16,
+      num_frames = 4,
+      speed_rate = 8,
+      is_loop = true,
+    },
+    {
+      animation_id = "trex_idle",
+      texture_id = "trex_idle",
       row = 0,
       w = 16,
       h = 16,
@@ -188,11 +262,19 @@ scene = {
     {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "beast_product", texture = "beast_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "bird_product", texture = "bird_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "dragon_product", texture = "dragon_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "carrot", texture = "carrot", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
     {id = "carrot_seeds", texture = "carrot_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "cleaning_kit", texture = "cleaning_kit", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "knife", texture = "knife", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "guide_glove", texture = "guide_glove", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "meat", texture = "meat", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "mollusc_product", texture = "mollusc_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "slime_product", texture = "slime_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "sugarcane_product", texture = "sugarcane_product", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "trex_product", texture = "trex_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "radish", texture = "radish", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
     {id = "radish_seeds", texture = "radish_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "pumpkin", texture = "pumpkin", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
@@ -437,6 +519,31 @@ scene = {
         },
       },
     },
+    -- Item on ground test 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "knife"
+        },
+        sprite = {
+          assetId = "knife",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x = 300.0, y = 350.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
     -- Zones
         {
       components = {
@@ -461,6 +568,7 @@ scene = {
         zone = {},
       },
     },
+    -- Slime Zone
     {
       components = {
         box_collider = {
@@ -478,6 +586,150 @@ scene = {
         },
         transform = {
           position = { x = 710.0, y = 260.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Sugarcane Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "sugarcane_zone",
+        },
+        transform = {
+          position = { x = 40.0, y = 470.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Bird Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "bird_zone",
+        },
+        transform = {
+          position = { x = 40.0, y = 260.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Beast Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "beast_zone",
+        },
+        transform = {
+          position = { x = 710.0, y = 470.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Mollusc Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "mollusc_zone",
+        },
+        transform = {
+          position = { x = 40.0, y = 50.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Trex Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "trex_zone",
+        },
+        transform = {
+          position = { x = 710.0, y = 680.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    -- Dragon Zone
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "dragon_zone",
+        },
+        transform = {
+          position = { x = 40.0, y = 680.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -571,6 +823,8 @@ scene = {
         }, 
       },
     },
+    -- Animals
+    -- Slime
     {
       components = {
         animation = {
@@ -621,6 +875,324 @@ scene = {
         },
         transform = {
           position = { x =750.0, y = 300.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Sugarcane
+    {
+      components = {
+        animation = {
+          id = "sugarcane_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "sugarcane_product",
+          max_happiness = 300,
+          current_happiness = 300,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 300,
+          current_cleanliness = 300,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 40
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "sugarcane_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_sugarcane",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 100.0, y = 500.0 },
+          scale = { x = 1.0, y = 1.5 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Bird
+    {
+      components = {
+        animation = {
+          id = "bird_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "bird_product",
+          max_happiness = 60,
+          current_happiness = 60,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 20
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "bird_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_bird",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 100.0, y = 300.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Beast
+    {
+      components = {
+        animation = {
+          id = "beast_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "beast_product",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 50,
+          current_hunger = 50,
+          max_cleanliness = 50,
+          current_cleanliness = 50,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 20
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "beast_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_beast",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 750.0, y = 500.0 },
+          scale = { x = 1.5, y = 1.5 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Mollusc
+    {
+      components = {
+        animation = {
+          id = "mollusc_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "mollusc_product",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 60
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "mollusc_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_mollusc",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 100.0, y = 100.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Trex
+    {
+      components = {
+        animation = {
+          id = "trex_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "trex_product",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 200,
+          current_hunger = 200,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 50
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "trex_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_trex",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 750.0, y = 700.0 },
+          scale = { x = 1.5, y = 1.5 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Dragon
+    {
+      components = {
+        animation = {
+          id = "dragon_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "dragon_product",
+          max_happiness = 50,
+          current_happiness = 50,
+          max_hunger = 50,
+          current_hunger = 50,
+          max_cleanliness = 150,
+          current_cleanliness = 150,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 20
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "dragon_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_dragon",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 100.0, y = 700.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
