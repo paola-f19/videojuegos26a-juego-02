@@ -7,6 +7,7 @@
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
+#include "../Game/Game.hpp"
 
 #include <iostream>
 
@@ -57,6 +58,8 @@ class ItemPickupSystem : public System {
       if (inventory.slot1.itemId == "none") {
         inventory.slot1.itemId = item.itemId;
 
+        Game::GetInstance().audioManager->PlaySound("pickup");
+
         itemEntity.Kill();
 
         return;
@@ -64,6 +67,8 @@ class ItemPickupSystem : public System {
 
       if (inventory.slot2.itemId == "none") {
         inventory.slot2.itemId = item.itemId;
+
+        Game::GetInstance().audioManager->PlaySound("pickup");
 
         itemEntity.Kill();
 
