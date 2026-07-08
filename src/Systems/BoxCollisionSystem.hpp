@@ -14,6 +14,7 @@
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../Components/PlayerComponent.hpp"
+#include "../Components/ZoneComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
@@ -95,6 +96,18 @@ class BoxCollisionSystem : public System {
       // std::cout << "Farm plot detected!" << std::endl;
       auto& playerComponent = player.GetComponent<PlayerComponent>();
       playerComponent.currentFarmPlot = farmPlot;
+    }
+
+    void HandleAnimalDetection(Entity player, Entity animal)  {
+      // std::cout << "Farm plot detected!" << std::endl;
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+      playerComponent.currentAnimalContact = animal;
+    }
+
+    void HandleZoneDetection(Entity zone, Entity animal)  {
+      // std::cout << "Farm plot detected!" << std::endl;
+      auto& animalComponent = animal.GetComponent<AnimalLeaderComponent>();
+      animalComponent.currentZone = zone;
     }
 
     void HandleDeliveryZoneDetection(Entity player, Entity deliveryZone)  {
@@ -199,6 +212,32 @@ class BoxCollisionSystem : public System {
               a.HasComponent<FarmPlotComponent>())
             {
               HandleFarmPlotDetection(b, a);
+            }
+
+            // Animal leader detection
+            if (a.HasComponent<PlayerComponent>() &&
+              b.HasComponent<AnimalLeaderComponent>())
+            {
+              HandleAnimalDetection(a, b);
+            }
+
+            if (b.HasComponent<PlayerComponent>() &&
+              a.HasComponent<AnimalLeaderComponent>())
+            {
+              HandleAnimalDetection(b, a);
+            }
+
+            // Animal zone detection
+            if (a.HasComponent<ZoneComponent>() &&
+              b.HasComponent<AnimalLeaderComponent>())
+            {
+              HandleZoneDetection(a, b);
+            }
+
+            if (b.HasComponent<ZoneComponent>() &&
+              a.HasComponent<AnimalLeaderComponent>())
+            {
+              HandleZoneDetection(b, a);
             }
 
             // Delivery zone detection

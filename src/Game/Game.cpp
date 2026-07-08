@@ -7,6 +7,7 @@
 
 #include "../Systems/AnimationSystem.hpp"
 #include "../Systems/AnimalProductionSystem.hpp"
+#include "../Systems/AnimalBarSystem.hpp"
 #include "../Systems/AttackSystem.hpp"
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
@@ -155,6 +156,7 @@ void Game::SetUp() {
   registry->AddSystem<ScriptSystem>();
   registry->AddSystem<UISystem>();
   registry->AddSystem<WanderSystem>();
+  registry->AddSystem<AnimalBarSystem>();
 
   sceneManager->LoadSceneFromScript("./assets/scripts/scenes.lua", lua);
 
@@ -255,12 +257,20 @@ void Game::Update() {
     registry->GetSystem<PlayerSystem>().Update();
     if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
         registry->GetSystem<PlayerSystem>().ClearCurrentFarmPlot();
+        registry->GetSystem<PlayerSystem>().ClearCurrentAnimalContact();
         registry->GetSystem<PlayerSystem>().ClearDeliveryZone();
     }
 
     registry->GetSystem<PhysicsSystem>().Update();
     registry->GetSystem<MovementSystem>().Update(deltaTime);
-    // registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
+
+    TransformComponent playerTransform;
+    if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
+      Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
+      playerTransform = player.GetComponent<TransformComponent>();
+    }
+
+    registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
     registry->GetSystem<PatrolSystem>().Update(deltaTime);
     registry->GetSystem<WanderSystem>().Update(deltaTime);
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
@@ -279,6 +289,7 @@ void Game::Update() {
     registry->GetSystem<UISystem>().Update(camera);
 
     registry->GetSystem<AnimalProductionSystem>().Update(deltaTime);
+
   }
 }
 
@@ -301,6 +312,8 @@ void Game::Render() {
   if (isDebugMode) {
     registry->GetSystem<RenderBoxColliderSystem>().Update(renderer, camera);
   }
+
+  registry->GetSystem<AnimalBarSystem>().Update(renderer, camera);
   
   SDL_RenderPresent(renderer);
 }
