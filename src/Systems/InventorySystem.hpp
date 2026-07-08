@@ -116,6 +116,8 @@ class InventorySystem : public System {
         if(playerComponent.currentFarmPlot.GetId() == -1)
           return;
 
+        Game::GetInstance().audioManager->PlaySound("slash");
+
         Game::GetInstance().registry->GetSystem<CropSystem>().HarvestCrop(
           playerComponent.currentFarmPlot);
 
@@ -125,6 +127,8 @@ class InventorySystem : public System {
       if (item.id == "watering_can") {
         if (playerComponent.currentFarmPlot.GetId() == -1)
           return;
+
+        Game::GetInstance().audioManager->PlaySound("watering_can");
 
         Game::GetInstance().registry->GetSystem<CropSystem>().WaterCrop(
           playerComponent.currentFarmPlot);
@@ -145,6 +149,8 @@ class InventorySystem : public System {
           .GetComponent<FarmPlotComponent>();
         if (farmPlot.occupied)
           return;
+
+        Game::GetInstance().audioManager->PlaySound("seed_pouch");
 
         Game::GetInstance().registry->GetSystem<CropSystem>().PlantCrop(
           playerComponent.currentFarmPlot,
@@ -403,6 +409,7 @@ class InventorySystem : public System {
             slot.itemId = "none";
 
             std::cout << "Delivered " << requirement.itemId << std::endl;
+            Game::GetInstance().audioManager->PlaySound("win");
           }
           break;
         }

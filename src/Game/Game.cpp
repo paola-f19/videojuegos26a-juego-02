@@ -247,7 +247,7 @@ void Game::Update() {
   registry->GetSystem<ItemPickupSystem>().SubscribeToCollisionEvent(eventManager);
   registry->GetSystem<InventorySystem>().SubscribeToKeyEvent(eventManager);
   registry->GetSystem<InventorySystem>().SubscribeToClickEvent(eventManager);
-  registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
+  // registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
 
   if (!this->isPaused && !this->isGameOver) {
     registry->Update();
@@ -280,7 +280,7 @@ void Game::Update() {
     registry->GetSystem<LifetimeSystem>().Update(deltaTime);
     registry->GetSystem<SanitySystem>().Update(deltaTime);
     registry->GetSystem<HealthSystem>().Update(deltaTime);
-    registry->GetSystem<AttackSystem>().Update(deltaTime);
+    // registry->GetSystem<AttackSystem>().Update(deltaTime);
 
     registry->GetSystem<AnimationSystem>().Update(animationManager);
     if (registry->GetSystem<PlayerSystem>().HasPlayer()) {
