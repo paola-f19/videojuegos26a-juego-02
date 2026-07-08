@@ -14,12 +14,15 @@ scene = {
     {assetId = "berry_seeds", filePath = "./assets/images/berry_seeds.png"},
     {assetId = "carrot", filePath = "./assets/images/carrot.png"},
     {assetId = "carrot_seeds", filePath = "./assets/images/carrot_seeds.png"},
+    {assetId = "cleaning_kit", filePath = "./assets/images/cleaning_kit.png"},
+    {assetId = "guide_glove", filePath = "./assets/images/glove.png"},
     {assetId = "radish", filePath = "./assets/images/radish.png"},
     {assetId = "radish_seeds", filePath = "./assets/images/radish_seeds.png"},
     {assetId = "pumpkin", filePath = "./assets/images/pumpkin.png"},
     {assetId = "pumpkin_seeds", filePath = "./assets/images/pumpkin_seeds.png"},
     {assetId = "sickle", filePath = "./assets/images/sickle.png"},
     {assetId = "slime_idle", filePath = "./assets/images/slime_idle.png"},
+    {assetId = "slime_product", filePath = "./assets/images/spit.png"},
     {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
   },
@@ -187,6 +190,9 @@ scene = {
     {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "carrot", texture = "carrot", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
     {id = "carrot_seeds", texture = "carrot_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "cleaning_kit", texture = "cleaning_kit", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "guide_glove", texture = "guide_glove", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
+    {id = "slime_product", texture = "slime_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "radish", texture = "radish", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
     {id = "radish_seeds", texture = "radish_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
     {id = "pumpkin", texture = "pumpkin", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
@@ -381,6 +387,103 @@ scene = {
         },
       },
     },
+    -- Item on ground test 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "guide_glove"
+        },
+        sprite = {
+          assetId = "guide_glove",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x =600.0, y = 300.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+        -- Item on ground test 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "cleaning_kit"
+        },
+        sprite = {
+          assetId = "cleaning_kit",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x =600.0, y = 350.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Zones
+        {
+      components = {
+        box_collider = {
+          width = 274,
+          height = 274,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "happy_zone",
+        },
+        transform = {
+          position = { x = 310.0, y = 485.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
+    {
+      components = {
+        box_collider = {
+          width = 148,
+          height = 120,
+          offset = { x = 0, y = 0 },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 0,
+        },
+        tag = {
+          tag = "slime_zone",
+        },
+        transform = {
+          position = { x = 710.0, y = 260.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        zone = {},
+      },
+    },
     -- Player
     -- last on the list so it renders on top of all other entities
     {
@@ -479,7 +582,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         animal_leader = {
-          product_id = "berry",
+          product_id = "slime_product",
           max_happiness = 100,
           current_happiness = 100,
           max_hunger = 100,
@@ -496,7 +599,7 @@ scene = {
         },
         rigid_body = {
           is_dynamic = false,
-          is_solid = true,
+          is_solid = false,
           mass = 10,
         },
         script = {
@@ -512,8 +615,12 @@ scene = {
         tag = {
           tag = "animal_slime",
         },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
         transform = {
-          position = { x = 465.0, y = 300.0 },
+          position = { x =750.0, y = 300.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },

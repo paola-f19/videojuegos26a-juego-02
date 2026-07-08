@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "../Components/InventoryComponent.hpp"
+#include "../Components/FollowComponent.hpp"
 #include "../Components/ItemComponent.hpp"
 #include "../Components/PlayerComponent.hpp"
 #include "../Components/SpriteComponent.hpp"
@@ -116,6 +117,52 @@ class InventorySystem : public System {
           playerComponent.currentFarmPlot,
           farmPlot.cropId + "_seeds"
         );
+        return;
+      }
+
+      // Cleaning kit
+      if (item.id == "cleaning_kit") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        // + cleaness
+        auto& animal = playerComponent.currentAnimalContact.GetComponent<AnimalLeaderComponent>();
+        animal.currentCleanliness = std::min(animal.maxCleanliness, animal.currentCleanliness + 20);
+        
+        std::cout << "Animal limpiado!" << std::endl;
+        return;
+      }
+
+      if (item.id == "guide_glove") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+
+        auto& animal = playerComponent.currentAnimalContact.GetComponent<FollowComponent>();
+        if(!animal.isFollowing) {
+          animal.isFollowing = true;
+        } else {
+          animal.isFollowing = false;
+        }
+        std::cout << "sigue o deja de seguir lol" << std::endl;
+        return;
+      }
+
+      // Need to add other food
+      if (item.id == "berry") {
+        if (playerComponent.currentAnimalContact.GetId() == -1) return;
+        
+        Entity animal = playerComponent.currentAnimalContact;
+        
+        //Need to add other animals tag
+        if (animal.HasComponent<TagComponent>() && 
+            animal.GetComponent<TagComponent>().tag == "animal_slime") {
+          
+          auto& animalStats = animal.GetComponent<AnimalLeaderComponent>();
+          animalStats.currentHunger = std::min(animalStats.maxHunger, animalStats.currentHunger + 20);
+          
+          slot.itemId = "none";
+          std::cout << "🍓 Slime alimentado!" << std::endl;
+        } else {
+          std::cout << "❌ Esto no es un slime!" << std::endl;
+        }
         return;
       }
 

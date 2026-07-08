@@ -20,6 +20,9 @@ struct AnimalLeaderComponent {
   float decayRate;
   float threshold;
 
+  // Entity reference
+  Entity currentZone{-1};
+
   AnimalLeaderComponent(
     std::string productId = "slime_product",
     float maxHappiness = 100.0f,
@@ -43,7 +46,8 @@ struct AnimalLeaderComponent {
       productionTimer(0.0f),
       productionInterval(productionInterval),
       decayRate(decayRate),
-      threshold(threshold) {}
+      threshold(threshold),
+      currentZone(-1) {}
 };
 
 #endif

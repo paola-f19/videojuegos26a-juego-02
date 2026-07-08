@@ -6,17 +6,17 @@
  */
 struct FollowComponent {
   float speed;
-  float detectionRadius;
+  bool isFollowing;
 
   /**
    * @brief Constructor.
    *
    * @param speed Movement speed.
-   * @param detectionRadius Radius wherein the entity will follow.
+   * @param isFollowing Whether the entity is currently following.
    */
-  FollowComponent(float speed = 0.0f, float detectionRadius = 0.0f) {
+  FollowComponent(float speed = 0.0f, bool isFollowing = true) {
     this->speed = speed;
-    this->detectionRadius = detectionRadius;
+    this->isFollowing = isFollowing;
   }
 };
 
