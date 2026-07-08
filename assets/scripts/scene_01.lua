@@ -588,7 +588,7 @@ scene = {
           tag = "slime_zone",
         },
         transform = {
-          position = { x = 710.0, y = 260.0 },
+          position = { x = 710.0, y = 225.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -612,7 +612,7 @@ scene = {
           tag = "sugarcane_zone",
         },
         transform = {
-          position = { x = 40.0, y = 470.0 },
+          position = { x = 40.0, y = 405.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -636,7 +636,7 @@ scene = {
           tag = "bird_zone",
         },
         transform = {
-          position = { x = 40.0, y = 260.0 },
+          position = { x = 40.0, y = 225.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -660,7 +660,7 @@ scene = {
           tag = "beast_zone",
         },
         transform = {
-          position = { x = 710.0, y = 470.0 },
+          position = { x = 710.0, y = 405.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -708,7 +708,7 @@ scene = {
           tag = "trex_zone",
         },
         transform = {
-          position = { x = 710.0, y = 680.0 },
+          position = { x = 710.0, y = 580.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -732,7 +732,7 @@ scene = {
           tag = "dragon_zone",
         },
         transform = {
-          position = { x = 40.0, y = 680.0 },
+          position = { x = 40.0, y = 580.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -840,12 +840,12 @@ scene = {
         },
         animal_leader = {
           product_id = "slime_product",
-          max_happiness = 100,
-          current_happiness = 100,
-          max_hunger = 100,
-          current_hunger = 100,
-          max_cleanliness = 100,
-          current_cleanliness = 100,
+          max_happiness = 110,
+          current_happiness = 110,
+          max_hunger = 110,
+          current_hunger = 110,
+          max_cleanliness = 110,
+          current_cleanliness = 110,
           count = 1,
           production_interval = 10,
           decay_rate = 2.0,
@@ -877,7 +877,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x =750.0, y = 300.0 },
+          position = { x =750.0, y = 280.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -930,7 +930,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x = 100.0, y = 500.0 },
+          position = { x = 100.0, y = 440.0 },
           scale = { x = 1.0, y = 1.5 },
           rotation = 0.0,
         },
@@ -983,7 +983,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x = 100.0, y = 300.0 },
+          position = { x = 100.0, y = 280.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -1036,7 +1036,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x = 750.0, y = 500.0 },
+          position = { x = 750.0, y = 440.0 },
           scale = { x = 1.5, y = 1.5 },
           rotation = 0.0,
         },
@@ -1142,7 +1142,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x = 750.0, y = 700.0 },
+          position = { x = 750.0, y = 600.0 },
           scale = { x = 1.5, y = 1.5 },
           rotation = 0.0,
         },
@@ -1195,7 +1195,7 @@ scene = {
           is_following = false,
         },
         transform = {
-          position = { x = 100.0, y = 700.0 },
+          position = { x = 100.0, y = 600.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
