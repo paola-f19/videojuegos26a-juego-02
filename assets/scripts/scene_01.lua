@@ -138,6 +138,9 @@ scene = {
     {id = "restore", filePath = "./assets/audio/Strange.wav"},
     {id = "gameOver", filePath = "./assets/audio/GameOver.wav"},
     {id = "win", filePath = "./assets/audio/Success3.wav"},
+    {id = "watering_can", filePath = "./assets/audio/Water10.wav"},
+    {id = "seed_pouch", filePath = "./assets/audio/Grass.wav"},
+    {id = "pickup", filePath = "./assets/audio/Alert2.wav"},
   },
 
   -- Tabla de musica
@@ -221,7 +224,7 @@ scene = {
           path = "./assets/scripts/pause.lua",
         },
         transform = {
-          position = { x = 375.0, y = 5.0 }, -- TODO: game renders this at x2
+          position = { x = 475.0, y = 5.0 }, -- TODO: game renders this at x2
           scale = { x = 0.80, y = 0.80 },
           rotation = 0.0,
         },
@@ -242,7 +245,7 @@ scene = {
           a = 255,
         },
         transform = {
-          position = { x = 135, y = 90 },
+          position = { x = 180, y = 90 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -262,7 +265,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 130, y = 140 },
+          position = { x = 175, y = 140 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -291,7 +294,7 @@ scene = {
           a = 0,
         },
         transform = {
-          position = { x = 130, y = 190 },
+          position = { x = 175, y = 190 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -325,7 +328,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x = 480.0, y = 250.0 },
+          position = { x = 385.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -350,7 +353,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x = 500.0, y = 250.0 },
+          position = { x = 370.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -375,7 +378,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x = 400.0, y = 220.0 },
+          position = { x = 355.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -434,7 +437,7 @@ scene = {
           tag = "player",
         },
         transform = {
-          position = { x = 465.0, y = 200.0 },
+          position = { x = 435.0, y = 140.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
