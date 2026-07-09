@@ -403,11 +403,17 @@ class InventorySystem : public System {
       for (auto& requirement : order) {
         if(requirement.itemId == slot.itemId) {
           if(requirement.delivered < requirement.required) {
+            auto item = Game::GetInstance().itemManager
+              ->GetItem(requirement.itemId);
+
+            Game::GetInstance().scoreManager->AddScore(item.value);
+
             requirement.delivered++;
 
             slot.itemId = "none";
 
             std::cout << "Delivered " << requirement.itemId << std::endl;
+            std::cout << "Score: " << Game::GetInstance().scoreManager->GetScore() << std::endl;
             Game::GetInstance().audioManager->PlaySound("win");
           }
           break;

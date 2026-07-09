@@ -14,10 +14,10 @@ class InventoryUISystem : public System {
     void DrawSlotBackground(SDL_Renderer* renderer, const SDL_Rect& rect) {
       SDL_SetRenderDrawColor(
         renderer,
-        255,
-        255,
-        255,
-        255
+        0,
+        0,
+        0,
+        0
       );
 
       SDL_RenderDrawRect(

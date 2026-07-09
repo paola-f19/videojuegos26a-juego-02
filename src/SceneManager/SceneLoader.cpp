@@ -177,10 +177,11 @@ void SceneLoader::LoadItems(const sol::table& items
     bool consumable = item["consumable"];
     int width = item["width"];
     int height = item["height"];
+    int value = item["value"];
     int srcRectX = item["src_rect"]["x"];
     int srcRectY = item["src_rect"]["y"];
 
-    itemManager->AddItem(id, texture, consumable, width, height, srcRectX
+    itemManager->AddItem(id, texture, consumable, width, height, value, srcRectX
       , srcRectY);
 
     index++;
