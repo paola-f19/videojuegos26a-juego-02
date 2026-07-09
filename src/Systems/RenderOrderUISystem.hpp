@@ -17,7 +17,7 @@ class RenderOrderUISystem : public System {
       auto& order = Game::GetInstance().orderManager->order;
 
       const int startX = 10;
-      const int startY = 70;
+      const int startY = 60;
 
       const int iconSize = 16;
       const int rowSpacing = 30;

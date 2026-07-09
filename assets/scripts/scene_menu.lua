@@ -157,34 +157,34 @@ scene = {
         },
       },
     },
-    -- -- Level 03 button
-    -- {
-    --   components = {
-    --     clickable = {},
-    --     script = {
-    --       path = "./assets/scripts/menu_button_03.lua",
-    --     },
-    --     text = {
-    --       text = "Level 03",
-    --       fontId = "press_start_16",
-    --       r = 0,
-    --       g = 0,
-    --       b = 0,
-    --       a = 0,
-    --     },
-    --     transform = {
-    --       position = { x = 180.0, y = 240.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --     ui = {},
-    --     ui_rect = {
-    --       width = 200,
-    --       height = 40,
-    --       color = { r = 245, g = 245, b = 245, a = 245 },
-    --     },
-    --   },
-    -- },
+    -- Level 03 button
+    {
+      components = {
+        clickable = {},
+        script = {
+          path = "./assets/scripts/menu_button_03.lua",
+        },
+        text = {
+          text = "Level 03",
+          fontId = "press_start_16",
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
+        },
+        transform = {
+          position = { x = 10.0, y = 250.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        ui = {},
+        ui_rect = {
+          width = 200,
+          height = 40,
+          color = { r = 245, g = 245, b = 245, a = 245 },
+        },
+      },
+    },
     {
       components = {
         player = {},
