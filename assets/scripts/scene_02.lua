@@ -801,9 +801,9 @@ scene = {
           mass = 10,
         },
         sanity = {
-          maxSanity = 300,
-          currentSanity = 300,
-          drain = 0,
+          maxSanity = 360,
+          currentSanity = 360,
+          drain = 1,
         },
         script = {
           path = "./assets/scripts/player.lua",

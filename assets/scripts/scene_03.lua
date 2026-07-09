@@ -320,7 +320,7 @@ scene = {
     [0] =
     {item = "carrot", quantity = 8},
     {item = "slime_product", quantity = 4},
-    {item = "bird_product", quantity = 4},
+    {item = "bird_product", quantity = 2},
     {item = "mollusc_product", quantity = 2},
     {item = "trex_product", quantity = 4},
     {item = "dragon_product", quantity = 2},
@@ -828,8 +828,8 @@ scene = {
           mass = 10,
         },
         sanity = {
-          maxSanity = 300,
-          currentSanity = 300,
+          maxSanity = 360,
+          currentSanity = 360,
           drain = 1,
         },
         script = {
