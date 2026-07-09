@@ -36,6 +36,7 @@
 #include "../Components/UIComponent.hpp"
 #include "../Components/UIRectComponent.hpp"
 #include "../Components/WanderComponent.hpp"
+#include "../Components/ZoneComponent.hpp"
 #include "../Game/Game.hpp"
 
 SceneLoader::SceneLoader() {
@@ -666,9 +667,12 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
       //* FollowComponent
       sol::optional<sol::table> hasFollow = components["follow"];
       if (hasFollow != sol::nullopt) {
+        float speed = components["follow"]["speed"];
+        bool isFollowing = components["follow"]["is_following"].get_or(false);
+        
         newEntity.AddComponent<FollowComponent>(
-          components["follow"]["speed"],
-          components["follow"]["detection_radius"]
+          speed,
+          isFollowing
         );
       }
 
@@ -956,8 +960,14 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
 
         newEntity.AddComponent<AnimalStatusComponent>();
       }
-    }
 
+      //* ZoneComponent
+      sol::optional<sol::table> hasZone = components["zone"];
+      if (hasZone != sol::nullopt) {
+        newEntity.AddComponent<ZoneComponent>();
+      }
+      
+    }
     index++;
   }
 }

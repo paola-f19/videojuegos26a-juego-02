@@ -7,6 +7,7 @@
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/ItemComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/TagComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../Game/Game.hpp"
 
@@ -65,21 +66,54 @@ public:
       
       float decay = GetDecayRate(animal.count);
       
-      animal.currentHappiness = std::max(0.0f, animal.currentHappiness - decay * deltaTime);
-      animal.currentHunger = std::max(0.0f, animal.currentHunger - decay * deltaTime);
-      animal.currentCleanliness = std::max(0.0f, animal.currentCleanliness - decay * deltaTime);
+      bool isHappyZone = false;
+      bool isMatchingZone = false;
       
-      if (animal.currentHappiness >= animal.threshold &&
-          animal.currentHunger >= animal.threshold &&
-          animal.currentCleanliness >= animal.threshold) {
-        
-        animal.productionTimer += deltaTime;
-        if (animal.productionTimer >= animal.productionInterval) {
-          animal.productionTimer = 0.0f;
-          Produce(entity);
+      // Solo procesar zona si existe
+      if (animal.currentZone.GetId() != -1) {
+        Entity zone = animal.currentZone;
+        if (zone.HasComponent<TagComponent>()) {
+          std::string zoneTag = zone.GetComponent<TagComponent>().tag;
+          std::string a_cut = zoneTag.substr(0, zoneTag.length() - 5);
+          
+          if (a_cut == "happy") {
+            isHappyZone = true;
+          }
+          
+          std::string b_cut = animal.productId.substr(0, animal.productId.length() - 8);
+          if (a_cut == b_cut) {
+            isMatchingZone = true;
+          }
         }
+      }
+      
+      // Felicidad
+      if (isHappyZone) {
+        animal.currentHappiness = std::min(animal.maxHappiness, 
+            animal.currentHappiness + decay * deltaTime);
       } else {
-        animal.productionTimer = 0.0f;
+        animal.currentHappiness = std::max(0.0f, 
+            animal.currentHappiness - decay * deltaTime);
+
+        animal.currentHunger = std::max(0.0f, animal.currentHunger - decay * deltaTime);
+        animal.currentCleanliness = std::max(0.0f, animal.currentCleanliness - decay * deltaTime);
+      }
+      
+      // Producción: solo si hay zona que coincide con el producto
+      if (isMatchingZone) {
+        if (animal.currentHappiness >= animal.threshold &&
+            animal.currentHunger >= animal.threshold &&
+            animal.currentCleanliness >= animal.threshold) {
+          
+          animal.productionTimer += deltaTime;
+          if (animal.productionTimer >= animal.productionInterval) {
+            animal.productionTimer = 0.0f;
+            Produce(entity);
+            animal.currentZone = Entity(-1);
+          }
+        } else {
+          animal.productionTimer = 0.0f;
+        }
       }
     }
   }

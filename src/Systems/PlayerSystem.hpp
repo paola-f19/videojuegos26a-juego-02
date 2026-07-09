@@ -53,6 +53,12 @@ class PlayerSystem : public System {
       playerComponent.currentFarmPlot = Entity(-1);
     }
 
+    void ClearCurrentAnimalContact() {
+      auto& playerComponent = player.GetComponent<PlayerComponent>();
+
+      playerComponent.currentAnimalContact = Entity(-1);
+    }
+
     void ClearDeliveryZone() {
       auto& playerComponent = player.GetComponent<PlayerComponent>();
 
