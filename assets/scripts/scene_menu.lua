@@ -185,6 +185,34 @@ scene = {
         },
       },
     },
+    -- Level 04 button
+    {
+      components = {
+        clickable = {},
+        script = {
+          path = "./assets/scripts/menu_button_04.lua",
+        },
+        text = {
+          text = "Level 04",
+          fontId = "press_start_16",
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
+        },
+        transform = {
+          position = { x = 10.0, y = 300.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        ui = {},
+        ui_rect = {
+          width = 200,
+          height = 40,
+          color = { r = 245, g = 245, b = 245, a = 245 },
+        },
+      },
+    },
     {
       components = {
         player = {},

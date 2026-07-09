@@ -916,9 +916,9 @@ scene = {
           max_cleanliness = 300,
           current_cleanliness = 300,
           count = 1,
-          production_interval = 10,
+          production_interval = 6,
           decay_rate = 2.0,
-          threshold = 40
+          threshold = 50
         },
         faction = {
           faction = "animal",
