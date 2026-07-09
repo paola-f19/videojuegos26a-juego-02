@@ -421,6 +421,11 @@ class InventorySystem : public System {
       }
 
       if(Game::GetInstance().orderManager->IsComplete()) {
+        for (auto entity : GetSystemEntities()) {
+          auto& sanity = entity.GetComponent<SanityComponent>();
+          int sanityConsumed = sanity.maxSanity - sanity.currentSanity;
+          std::cout << "LEVEL COMPLETE in: " << sanityConsumed << " seconds !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+        }
         // win
         std::cout << "LEVEL COMPLETE" << std::endl;
         Game::GetInstance().sceneManager->SetNextScene("win");
