@@ -522,11 +522,12 @@ scene = {
       },
     },
     -- Zones
+    -- Happy Zone
         {
       components = {
         box_collider = {
-          width = 274,
-          height = 274,
+          width = 272,
+          height = 144,
           offset = { x = 0, y = 0 },
         },
         rigid_body = {
@@ -538,7 +539,7 @@ scene = {
           tag = "happy_zone",
         },
         transform = {
-          position = { x = 310.0, y = 485.0 },
+          position = { x = 310.0, y = 470.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -877,9 +878,9 @@ scene = {
           max_cleanliness = 100,
           current_cleanliness = 100,
           count = 1,
-          production_interval = 10,
+          production_interval = 6,
           decay_rate = 2.0,
-          threshold = 20
+          threshold = 25
         },
         faction = {
           faction = "animal",

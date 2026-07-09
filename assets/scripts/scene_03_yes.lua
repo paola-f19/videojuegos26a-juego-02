@@ -291,9 +291,9 @@ scene = {
     {item = "carrot", quantity = 8},
     {item = "slime_product", quantity = 4},
     {item = "bird_product", quantity = 4},
-    {item = "mollusc_product", quantity = 1},
+    {item = "mollusc_product", quantity = 2},
     {item = "trex_product", quantity = 4},
-    {item = "dragon_product", quantity = 4},
+    {item = "dragon_product", quantity = 2},
   },
 
   -- Tabla de entidades
@@ -493,7 +493,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x =600.0, y = 300.0 },
+          position = { x = 520.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -518,7 +518,7 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x =600.0, y = 350.0 },
+          position = { x = 500.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -543,18 +543,19 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x = 300.0, y = 350.0 },
+          position = { x = 540.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
       },
     },
     -- Zones
+    -- Happy Zone
         {
       components = {
         box_collider = {
-          width = 274,
-          height = 274,
+          width = 272,
+          height = 144,
           offset = { x = 0, y = 0 },
         },
         rigid_body = {
@@ -566,7 +567,7 @@ scene = {
           tag = "happy_zone",
         },
         transform = {
-          position = { x = 310.0, y = 485.0 },
+          position = { x = 310.0, y = 470.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -893,7 +894,7 @@ scene = {
         },
         box_collider = {
           width = 16,
-          height = 16,
+          height = 24,
           offset = { x = 0, y = 0 },
         },
         animal_leader = {
@@ -958,9 +959,9 @@ scene = {
           max_cleanliness = 100,
           current_cleanliness = 100,
           count = 1,
-          production_interval = 10,
+          production_interval = 6,
           decay_rate = 2.0,
-          threshold = 20
+          threshold = 25
         },
         faction = {
           faction = "animal",
@@ -1051,8 +1052,8 @@ scene = {
           id = "trex_idle",
         },
         box_collider = {
-          width = 16,
-          height = 16,
+          width = 24,
+          height = 24,
           offset = { x = 0, y = 0 },
         },
         animal_leader = {
