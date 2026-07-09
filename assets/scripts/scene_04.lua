@@ -6,6 +6,13 @@ scene = {
     {assetId = "0_floor", filePath = "./assets/images/floors.png"},
     {assetId = "0_ranch_props", filePath = "./assets/images/ranch_props.png"},
     {assetId = "0_farming_props", filePath = "./assets/images/farming_props.png"},
+    {assetId = "0_beast", filePath = "./assets/images/beast_icon.png"},
+    {assetId = "0_slime", filePath = "./assets/images/slime_icon.png"},
+    {assetId = "0_trex", filePath = "./assets/images/trex_icon.png"},
+    {assetId = "0_mollusc", filePath = "./assets/images/mollusc_icon.png"},
+    {assetId = "0_owl", filePath = "./assets/images/owl_icon.png"},
+    {assetId = "0_sugarcane", filePath = "./assets/images/sugarcane_icon.png"},
+    {assetId = "0_dragon", filePath = "./assets/images/dragon_icon.png"},
     {assetId = "farmer_idle", filePath = "./assets/images/farmer_idle.png"},
     {assetId = "farmer_walk", filePath = "./assets/images/farmer_walk.png"},
     {assetId = "player", filePath = "./assets/images/player.png"},
@@ -234,7 +241,10 @@ scene = {
   },
 
   -- Tabla de musica
-  music = {},
+  music = {
+    [0] =
+    {id = "bgMusic", filePath = "./assets/audio/Peaceful.ogg"}
+  },
 
   -- Tabla de fuentes
   fonts = {
@@ -267,6 +277,13 @@ scene = {
       {name = "0_floor", path = "./assets/maps/floors.tsx"},
       {name = "0_ranch_props", path = "./assets/maps/ranch_props.tsx"},
       {name = "0_farming_props", path = "./assets/maps/farming_props.tsx"},
+      {name = "0_beast", path = "./assets/maps/beast.tsx"},
+      {name = "0_slime", path = "./assets/maps/slime.tsx"},
+      {name = "0_trex", path = "./assets/maps/trex.tsx"},
+      {name = "0_mollusc", path = "./assets/maps/mollusc.tsx"},
+      {name = "0_owl", path = "./assets/maps/owl.tsx"},
+      {name = "0_sugarcane", path = "./assets/maps/sugarcane.tsx"},
+      {name = "0_dragon", path = "./assets/maps/dragon.tsx"},
     },
   },
 
@@ -979,9 +996,9 @@ scene = {
           max_cleanliness = 100,
           current_cleanliness = 100,
           count = 1,
-          production_interval = 6,
+          production_interval = 8,
           decay_rate = 2.0,
-          threshold = 25
+          threshold = 35
         },
         faction = {
           faction = "animal",
@@ -1087,7 +1104,7 @@ scene = {
           count = 1,
           production_interval = 10,
           decay_rate = 2.0,
-          threshold = 50
+          threshold = 55
         },
         faction = {
           faction = "animal",
