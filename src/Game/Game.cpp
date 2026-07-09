@@ -6,8 +6,10 @@
 #include "../Events/KeyEvent.hpp"
 
 #include "../Systems/AnimationSystem.hpp"
+#include "../Systems/AnimalEventSystem.hpp"
 #include "../Systems/AnimalProductionSystem.hpp"
 #include "../Systems/AnimalBarSystem.hpp"
+#include "../Systems/AnimalStatusSystem.hpp"
 #include "../Systems/AttackSystem.hpp"
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
@@ -127,7 +129,9 @@ void Game::Init() {
 
 void Game::SetUp() {
   registry->AddSystem<AnimationSystem>();
+  registry->AddSystem<AnimalEventSystem>();
   registry->AddSystem<AnimalProductionSystem>();
+  registry->AddSystem<AnimalStatusSystem>();
   registry->AddSystem<AttackSystem>();
   registry->AddSystem<BoxCollisionSystem>();
   registry->AddSystem<CameraMovementSystem>();
@@ -288,8 +292,9 @@ void Game::Update() {
     }
     registry->GetSystem<UISystem>().Update(camera);
 
+    registry->GetSystem<AnimalEventSystem>().Update(deltaTime);
     registry->GetSystem<AnimalProductionSystem>().Update(deltaTime);
-
+    registry->GetSystem<AnimalStatusSystem>().Update(deltaTime);
   }
 }
 

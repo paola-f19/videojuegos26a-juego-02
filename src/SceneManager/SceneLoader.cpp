@@ -6,6 +6,7 @@
 #include "../Components/AnimationComponent.hpp"
 #include "../Components/AttackComponent.hpp"
 #include "../Components/AnimalLeaderComponent.hpp"
+#include "../Components/AnimalStatusComponent.hpp"
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/CameraFollowComponent.hpp"
 #include "../Components/CircleColliderComponent.hpp"
@@ -956,6 +957,8 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
           decayRate,
           threshold
         );
+
+        newEntity.AddComponent<AnimalStatusComponent>();
       }
 
       //* ZoneComponent
