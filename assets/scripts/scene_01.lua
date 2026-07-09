@@ -39,6 +39,7 @@ scene = {
     {assetId = "trex_product", filePath = "./assets/images/trex_product.png"},
     {assetId = "watering_can", filePath = "./assets/images/watering_can.png"},
     {assetId = "settings", filePath = "./assets/images/Settings.png"},
+    {assetId = "lightning", filePath = "./assets/images/lightning.png"},
   },
 
   -- Tabla con la info de las animaciones
@@ -174,6 +175,17 @@ scene = {
       speed_rate = 8,
       is_loop = true,
     },
+    -- lightning
+    {
+      animation_id = "lightning_strike",
+      texture_id = "lightning",
+      row = 0,
+      w = 20,
+      h = 28,
+      num_frames = 8,
+      speed_rate = 8,
+      is_loop = false,
+    },
     -- attacks
     -- {
     --   animation_id = "player_attack_side",
@@ -218,6 +230,7 @@ scene = {
     {id = "watering_can", filePath = "./assets/audio/Water10.wav"},
     {id = "seed_pouch", filePath = "./assets/audio/Grass.wav"},
     {id = "pickup", filePath = "./assets/audio/Alert2.wav"},
+    {id = "lightning_strike", filePath = "./assets/audio/Explosion.wav"},
   },
 
   -- Tabla de musica
