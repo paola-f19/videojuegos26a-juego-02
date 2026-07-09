@@ -14,6 +14,8 @@ struct ItemDefinition {
   int width;
   int height;
 
+  int value; // sell price
+
   SDL_Rect srcRect;
 };
 
@@ -27,8 +29,8 @@ class ItemManager {
 
     void ClearItems();
     void AddItem(const std::string& id, const std::string& textureId
-      , bool consumable, int width = 0, int height = 0, int srcRectX = 0
-      , int srcRectY = 0);
+      , bool consumable, int width = 0, int height = 0, int value = 0
+      , int srcRectX = 0, int srcRectY = 0);
     ItemDefinition& GetItem(const std::string& id);
 };
 

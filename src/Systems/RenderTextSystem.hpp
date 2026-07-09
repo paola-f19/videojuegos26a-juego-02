@@ -9,6 +9,7 @@
 #include "../AssetManager/AssetManager.hpp"
 #include "../Components/PauseMenuComponent.hpp"
 #include "../Components/TextComponent.hpp"
+#include "../Components/TagComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
@@ -45,6 +46,16 @@ class RenderTextSystem : public System {
 
         auto& text = entity.GetComponent<TextComponent>();
         auto& transform = entity.GetComponent<TransformComponent>();
+
+        // check if its score text and update score
+        bool hasTag = entity.HasComponent<TagComponent>();
+        if (hasTag) {
+          auto& tag = entity.GetComponent<TagComponent>();
+          if (tag.tag == "score") {
+            int score = Game::GetInstance().scoreManager->GetScore();
+            text.text = "Score: " + std::to_string(score);
+          }
+        }
 
         SDL_Surface* surface = TTF_RenderText_Blended(
           assetManager->GetFont(text.fontId), text.text.c_str(), text.color);

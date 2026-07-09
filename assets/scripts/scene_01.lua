@@ -273,29 +273,29 @@ scene = {
   -- Tabla de items
   items =  {
     [0] = 
-    {id = "sickle", texture = "sickle", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "watering_can", texture = "watering_can", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "beast_product", texture = "beast_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "bird_product", texture = "bird_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "dragon_product", texture = "dragon_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "carrot", texture = "carrot", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
-    {id = "carrot_seeds", texture = "carrot_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "cleaning_kit", texture = "cleaning_kit", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "knife", texture = "knife", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "guide_glove", texture = "guide_glove", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "meat", texture = "meat", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "mollusc_product", texture = "mollusc_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "slime_product", texture = "slime_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "sugarcane_product", texture = "sugarcane_product", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "trex_product", texture = "trex_product", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "radish", texture = "radish", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
-    {id = "radish_seeds", texture = "radish_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "pumpkin", texture = "pumpkin", consumable = true, width = 16, height = 16, src_rect = { x = 16, y = 0 }},
-    {id = "pumpkin_seeds", texture = "pumpkin_seeds", consumable = true, width = 16, height = 16, src_rect = { x = 0, y = 0 }},
-    {id = "seed_pouch", texture = "0_farming_props", consumable = false, width = 16, height = 16, src_rect = { x = 0, y = 48 }},
+    {id = "sickle", texture = "sickle", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "watering_can", texture = "watering_can", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "bamboo", texture = "bamboo", consumable = true, width = 16, height = 16, value = 5, src_rect = { x = 0, y = 0 }},
+    {id = "berry", texture = "berry", consumable = true, width = 16, height = 16, value = 5, src_rect = { x = 0, y = 0 }},
+    {id = "berry_seeds", texture = "berry_seeds", consumable = true, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "beast_product", texture = "beast_product", consumable = false, width = 16, height = 16, value = 25, src_rect = { x = 0, y = 0 }},
+    {id = "bird_product", texture = "bird_product", consumable = false, width = 16, height = 16, value = 15, src_rect = { x = 0, y = 0 }},
+    {id = "dragon_product", texture = "dragon_product", consumable = false, width = 16, height = 16, value = 50, src_rect = { x = 0, y = 0 }},
+    {id = "carrot", texture = "carrot", consumable = true, width = 16, height = 16, value = 10, src_rect = { x = 16, y = 0 }},
+    {id = "carrot_seeds", texture = "carrot_seeds", consumable = true, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "cleaning_kit", texture = "cleaning_kit", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "knife", texture = "knife", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "guide_glove", texture = "guide_glove", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "meat", texture = "meat", consumable = true, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "mollusc_product", texture = "mollusc_product", consumable = false, width = 16, height = 16, value = 5, src_rect = { x = 0, y = 0 }},
+    {id = "slime_product", texture = "slime_product", consumable = false, width = 16, height = 16, value = 5, src_rect = { x = 0, y = 0 }},
+    {id = "sugarcane_product", texture = "sugarcane_product", consumable = true, width = 16, height = 16, value = 10, src_rect = { x = 0, y = 0 }},
+    {id = "trex_product", texture = "trex_product", consumable = false, width = 16, height = 16, value = 75, src_rect = { x = 0, y = 0 }},
+    {id = "radish", texture = "radish", consumable = true, width = 16, height = 16, value = 15, src_rect = { x = 16, y = 0 }},
+    {id = "radish_seeds", texture = "radish_seeds", consumable = true, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "pumpkin", texture = "pumpkin", consumable = true, width = 16, height = 16, value = 20, src_rect = { x = 16, y = 0 }},
+    {id = "pumpkin_seeds", texture = "pumpkin_seeds", consumable = true, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 0 }},
+    {id = "seed_pouch", texture = "0_farming_props", consumable = false, width = 16, height = 16, value = 0, src_rect = { x = 0, y = 48 }},
   },
 
   -- Tabla de ordenes
@@ -408,6 +408,27 @@ scene = {
         script = {
           path = "./assets/scripts/menu_button.lua",
         },
+      },
+    },
+    -- Score
+    {
+      components = {
+        text = {
+          text =  "Score: 0",
+          fontId = "press_start_8",
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
+        },
+        transform = {
+          position = { x = 380, y = 10 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        tag = {
+          tag = "score",
+        }
       },
     },
     -- Item on ground test 1

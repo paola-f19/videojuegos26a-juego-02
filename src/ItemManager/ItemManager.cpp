@@ -15,11 +15,12 @@ void ItemManager::ClearItems() {
 }
 
 void ItemManager::AddItem(const std::string& id, const std::string& textureId
-  , bool consumable, int width, int height, int srcRectX, int srcRectY) {
+  , bool consumable, int width, int height, int value, int srcRectX
+  , int srcRectY) {
   SDL_Rect scrRect = {srcRectX, srcRectY, width, height};
   items.emplace(
     id,
-    ItemDefinition{id, textureId, consumable, width, height, scrRect}
+    ItemDefinition{id, textureId, consumable, width, height, value, scrRect}
   );
 }
 

@@ -49,7 +49,7 @@ class RenderOrderUISystem : public System {
         std::string progress = std::to_string(requirement.delivered) + "/"
           + std::to_string(requirement.required);
 
-        SDL_Color color = { 255, 255, 255, 255 };
+        SDL_Color color = { 0, 0, 0, 0 };
 
         SDL_Surface* surface = TTF_RenderText_Blended(
           assetManager->GetFont("press_start_8"),
