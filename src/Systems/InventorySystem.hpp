@@ -110,6 +110,12 @@ class InventorySystem : public System {
 
       auto& item = Game::GetInstance().itemManager->GetItem(slot.itemId);
 
+      // DELIVER ITEMS
+      if(playerComponent.currentDeliveryZone.GetId() != -1) {
+        DeliverItem(slot);
+        return;
+      }
+
       // TOOLS
 
       if (item.id == "sickle") {
@@ -334,13 +340,6 @@ class InventorySystem : public System {
         std::cout << "Animal sacrificado!" << std::endl;
         return;
       }
-
-      // DELIVER ITEMS
-      if(playerComponent.currentDeliveryZone.GetId() != -1) {
-        DeliverItem(slot);
-        return;
-      }
-
       // remove item
       // if (item.consumable) {
       //   slot.itemId = "none";
