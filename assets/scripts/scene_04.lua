@@ -318,9 +318,11 @@ scene = {
   -- Tabla de ordenes
   orders = {
     [0] =
-    {item = "berry", quantity = 4},
+    {item = "carrot", quantity = 8},
     {item = "slime_product", quantity = 4},
-    {item = "beast_product", quantity = 4},
+    {item = "bird_product", quantity = 4},
+    {item = "mollusc_product", quantity = 2},
+    {item = "trex_product", quantity = 4},
     {item = "dragon_product", quantity = 2},
   },
 
@@ -548,7 +550,7 @@ scene = {
         },
       },
     },
-        -- Item on ground test 1
+    -- Item on ground test 1
     {
       components = {
         box_collider = {
@@ -568,6 +570,31 @@ scene = {
         },
         transform = {
           position = { x = 500.0, y = 65.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Item on ground test 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        item = {
+          id = "knife"
+        },
+        sprite = {
+          assetId = "knife",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        transform = {
+          position = { x = 300.0, y = 350.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -803,7 +830,7 @@ scene = {
         sanity = {
           maxSanity = 300,
           currentSanity = 300,
-          drain = 0,
+          drain = 1,
         },
         script = {
           path = "./assets/scripts/player.lua",
@@ -949,29 +976,29 @@ scene = {
         },
       },
     },
-    -- Beast
+    -- Bird
     {
       components = {
         animation = {
-          id = "beast_idle",
+          id = "bird_idle",
         },
         box_collider = {
-          width = 24,
-          height = 24,
+          width = 16,
+          height = 16,
           offset = { x = 0, y = 0 },
         },
         animal_leader = {
-          product_id = "beast_product",
-          max_happiness = 110,
-          current_happiness = 110,
-          max_hunger = 50,
-          current_hunger = 50,
-          max_cleanliness = 110,
-          current_cleanliness = 110,
+          product_id = "bird_product",
+          max_happiness = 60,
+          current_happiness = 60,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
           count = 1,
-          production_interval = 6,
+          production_interval = 8,
           decay_rate = 2.0,
-          threshold = 25,
+          threshold = 35
         },
         faction = {
           faction = "animal",
@@ -982,21 +1009,127 @@ scene = {
           mass = 10,
         },
         sprite = {
-          assetId = "beast_idle",
+          assetId = "bird_idle",
           width = 16,
           height = 16,
           src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
           offset = { x = 0, y = 0 },
         },
         tag = {
-          tag = "animal_beast",
+          tag = "animal_bird",
         },
         follow = {
           speed = 100,
           is_following = false,
         },
         transform = {
-          position = { x = 750.0, y = 440.0 },
+          position = { x = 100.0, y = 280.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Mollusc
+    {
+      components = {
+        animation = {
+          id = "mollusc_idle",
+        },
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "mollusc_product",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 100,
+          current_hunger = 100,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 60
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "mollusc_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_mollusc",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 100.0, y = 100.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Trex
+    {
+      components = {
+        animation = {
+          id = "trex_idle",
+        },
+        box_collider = {
+          width = 24,
+          height = 24,
+          offset = { x = 0, y = 0 },
+        },
+        animal_leader = {
+          product_id = "trex_product",
+          max_happiness = 100,
+          current_happiness = 100,
+          max_hunger = 200,
+          current_hunger = 200,
+          max_cleanliness = 100,
+          current_cleanliness = 100,
+          count = 1,
+          production_interval = 10,
+          decay_rate = 2.0,
+          threshold = 55
+        },
+        faction = {
+          faction = "animal",
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 10,
+        },
+        sprite = {
+          assetId = "trex_idle",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "animal_trex",
+        },
+        follow = {
+          speed = 100,
+          is_following = false,
+        },
+        transform = {
+          position = { x = 750.0, y = 600.0 },
           scale = { x = 1.5, y = 1.5 },
           rotation = 0.0,
         },

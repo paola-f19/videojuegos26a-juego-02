@@ -340,7 +340,6 @@ class InventorySystem : public System {
         std::cout << "Animal sacrificado!" << std::endl;
         return;
       }
-
       // remove item
       // if (item.consumable) {
       //   slot.itemId = "none";

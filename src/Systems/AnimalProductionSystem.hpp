@@ -90,7 +90,7 @@ public:
       // Felicidad
       if (isHappyZone) {
         animal.currentHappiness = std::min(animal.maxHappiness, 
-            animal.currentHappiness + decay * deltaTime);
+            animal.currentHappiness + (decay * deltaTime)*2);
       } else {
         animal.currentHappiness = std::max(0.0f, 
             animal.currentHappiness - decay * deltaTime);

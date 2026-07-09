@@ -318,10 +318,9 @@ scene = {
   -- Tabla de ordenes
   orders = {
     [0] =
-    {item = "berry", quantity = 1},
-    {item = "carrot", quantity = 1},
-    {item = "radish", quantity = 1},
-    {item = "pumpkin", quantity = 1},
+    {item = "berry", quantity = 4},
+    {item = "slime_product", quantity = 4},
+    {item = "bird_product", quantity = 2},
   },
 
   -- Tabla de entidades
@@ -542,13 +541,13 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x =600.0, y = 300.0 },
+          position = { x = 520.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
       },
     },
-        -- Item on ground test 1
+    -- Item on ground test 1
     {
       components = {
         box_collider = {
@@ -567,43 +566,19 @@ scene = {
           offset = { x = 0, y = 0 },
         },
         transform = {
-          position = { x =600.0, y = 350.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
-      },
-    },
-    -- Item on ground test 1
-    {
-      components = {
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        item = {
-          id = "knife"
-        },
-        sprite = {
-          assetId = "knife",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 },
-          offset = { x = 0, y = 0 },
-        },
-        transform = {
-          position = { x = 300.0, y = 350.0 },
+          position = { x = 500.0, y = 65.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
       },
     },
     -- Zones
+    -- Happy Zone
         {
       components = {
         box_collider = {
-          width = 274,
-          height = 274,
+          width = 272,
+          height = 144,
           offset = { x = 0, y = 0 },
         },
         rigid_body = {
@@ -615,7 +590,7 @@ scene = {
           tag = "happy_zone",
         },
         transform = {
-          position = { x = 310.0, y = 485.0 },
+          position = { x = 310.0, y = 470.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -825,9 +800,9 @@ scene = {
           mass = 10,
         },
         sanity = {
-          maxSanity = 100,
-          currentSanity = 100,
-          drain = 0,
+          maxSanity = 300,
+          currentSanity = 300,
+          drain = 1,
         },
         script = {
           path = "./assets/scripts/player.lua",
@@ -849,20 +824,6 @@ scene = {
         },
       },
     },
-    -- Health bar
-    {
-      components = {
-        bar = {
-          width = 100,
-          height = 10,
-          posX = 10,
-          posY = 10,
-          fgColor = { r = 0, g = 255, b = 0, a = 255 },
-          bgColor = { r = 60, g = 60, b = 60, a = 255 },
-          type = "health"
-        }, 
-      },
-    },
     -- Sanity bar
     {
       components = {
@@ -870,7 +831,7 @@ scene = {
           width = 100,
           height = 10,
           posX = 10,
-          posY = 25,
+          posY = 10,
           fgColor = { r = 100, g = 149, b = 237, a = 255 },
           bgColor = { r = 60, g = 60, b = 60, a = 255 },
           type = "sanity"
@@ -934,59 +895,6 @@ scene = {
         },
       },
     },
-    -- Sugarcane
-    {
-      components = {
-        animation = {
-          id = "sugarcane_idle",
-        },
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        animal_leader = {
-          product_id = "sugarcane_product",
-          max_happiness = 300,
-          current_happiness = 300,
-          max_hunger = 100,
-          current_hunger = 100,
-          max_cleanliness = 300,
-          current_cleanliness = 300,
-          count = 1,
-          production_interval = 10,
-          decay_rate = 2.0,
-          threshold = 40
-        },
-        faction = {
-          faction = "animal",
-        },
-        rigid_body = {
-          is_dynamic = false,
-          is_solid = false,
-          mass = 10,
-        },
-        sprite = {
-          assetId = "sugarcane_idle",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
-          offset = { x = 0, y = 0 },
-        },
-        tag = {
-          tag = "animal_sugarcane",
-        },
-        follow = {
-          speed = 100,
-          is_following = false,
-        },
-        transform = {
-          position = { x = 100.0, y = 440.0 },
-          scale = { x = 1.0, y = 1.5 },
-          rotation = 0.0,
-        },
-      },
-    },
     -- Bird
     {
       components = {
@@ -1007,9 +915,9 @@ scene = {
           max_cleanliness = 100,
           current_cleanliness = 100,
           count = 1,
-          production_interval = 10,
+          production_interval = 8,
           decay_rate = 2.0,
-          threshold = 20
+          threshold = 30
         },
         faction = {
           faction = "animal",
@@ -1035,218 +943,6 @@ scene = {
         },
         transform = {
           position = { x = 100.0, y = 280.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
-      },
-    },
-    -- Beast
-    {
-      components = {
-        animation = {
-          id = "beast_idle",
-        },
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        animal_leader = {
-          product_id = "beast_product",
-          max_happiness = 100,
-          current_happiness = 100,
-          max_hunger = 50,
-          current_hunger = 50,
-          max_cleanliness = 50,
-          current_cleanliness = 50,
-          count = 1,
-          production_interval = 10,
-          decay_rate = 2.0,
-          threshold = 20
-        },
-        faction = {
-          faction = "animal",
-        },
-        rigid_body = {
-          is_dynamic = false,
-          is_solid = false,
-          mass = 10,
-        },
-        sprite = {
-          assetId = "beast_idle",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
-          offset = { x = 0, y = 0 },
-        },
-        tag = {
-          tag = "animal_beast",
-        },
-        follow = {
-          speed = 100,
-          is_following = false,
-        },
-        transform = {
-          position = { x = 750.0, y = 440.0 },
-          scale = { x = 1.5, y = 1.5 },
-          rotation = 0.0,
-        },
-      },
-    },
-    -- Mollusc
-    {
-      components = {
-        animation = {
-          id = "mollusc_idle",
-        },
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        animal_leader = {
-          product_id = "mollusc_product",
-          max_happiness = 100,
-          current_happiness = 100,
-          max_hunger = 100,
-          current_hunger = 100,
-          max_cleanliness = 100,
-          current_cleanliness = 100,
-          count = 1,
-          production_interval = 10,
-          decay_rate = 2.0,
-          threshold = 60
-        },
-        faction = {
-          faction = "animal",
-        },
-        rigid_body = {
-          is_dynamic = false,
-          is_solid = false,
-          mass = 10,
-        },
-        sprite = {
-          assetId = "mollusc_idle",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
-          offset = { x = 0, y = 0 },
-        },
-        tag = {
-          tag = "animal_mollusc",
-        },
-        follow = {
-          speed = 100,
-          is_following = false,
-        },
-        transform = {
-          position = { x = 100.0, y = 100.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
-      },
-    },
-    -- Trex
-    {
-      components = {
-        animation = {
-          id = "trex_idle",
-        },
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        animal_leader = {
-          product_id = "trex_product",
-          max_happiness = 100,
-          current_happiness = 100,
-          max_hunger = 200,
-          current_hunger = 200,
-          max_cleanliness = 100,
-          current_cleanliness = 100,
-          count = 1,
-          production_interval = 10,
-          decay_rate = 2.0,
-          threshold = 50
-        },
-        faction = {
-          faction = "animal",
-        },
-        rigid_body = {
-          is_dynamic = false,
-          is_solid = false,
-          mass = 10,
-        },
-        sprite = {
-          assetId = "trex_idle",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
-          offset = { x = 0, y = 0 },
-        },
-        tag = {
-          tag = "animal_trex",
-        },
-        follow = {
-          speed = 100,
-          is_following = false,
-        },
-        transform = {
-          position = { x = 750.0, y = 600.0 },
-          scale = { x = 1.5, y = 1.5 },
-          rotation = 0.0,
-        },
-      },
-    },
-    -- Dragon
-    {
-      components = {
-        animation = {
-          id = "dragon_idle",
-        },
-        box_collider = {
-          width = 16,
-          height = 16,
-          offset = { x = 0, y = 0 },
-        },
-        animal_leader = {
-          product_id = "dragon_product",
-          max_happiness = 50,
-          current_happiness = 50,
-          max_hunger = 50,
-          current_hunger = 50,
-          max_cleanliness = 150,
-          current_cleanliness = 150,
-          count = 1,
-          production_interval = 10,
-          decay_rate = 2.0,
-          threshold = 20
-        },
-        faction = {
-          faction = "animal",
-        },
-        rigid_body = {
-          is_dynamic = false,
-          is_solid = false,
-          mass = 10,
-        },
-        sprite = {
-          assetId = "dragon_idle",
-          width = 16,
-          height = 16,
-          src_rect = { x = 0, y = 0 }, -- TODO: overriden by animation
-          offset = { x = 0, y = 0 },
-        },
-        tag = {
-          tag = "animal_dragon",
-        },
-        follow = {
-          speed = 100,
-          is_following = false,
-        },
-        transform = {
-          position = { x = 100.0, y = 600.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },

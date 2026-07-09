@@ -70,14 +70,14 @@ class InventoryUISystem : public System {
         
         SDL_Rect slot1Rect {
           10,
-          40,
+          30,
           24,
           24
         };
 
         SDL_Rect slot2Rect {
           40,
-          40,
+          30,
           24,
           24
         };
