@@ -98,7 +98,7 @@ void Game::Init() {
   windowHeight = 800;
 
   window = SDL_CreateWindow(
-    "Game 02",
+    "A Refuge for Animals Abandoned by Other Dimensions",
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
     windowWidth,
