@@ -51,6 +51,7 @@ Game::Game() {
   orderManager = std::make_unique<OrderManager>();
   registry = std::make_unique<Registry>();
   sceneManager = std::make_unique<SceneManager>();
+  scoreManager = std::make_unique<ScoreManager>();
 }
 
 Game::~Game() {
@@ -63,6 +64,7 @@ Game::~Game() {
   orderManager.reset();
   registry.reset();
   sceneManager.reset();
+  scoreManager.reset();
 
   std::cout << "[GAME] Se ejecuta destructor" << std::endl;
 }
@@ -310,6 +312,9 @@ void Game::Render() {
     Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
     registry->GetSystem<BarSystem>().Update(renderer, player);
   }
+
+  registry->GetSystem<AnimalBarSystem>().Update(renderer, camera);
+
   registry->GetSystem<InventoryUISystem>().Update(renderer, assetManager
     , itemManager);
   registry->GetSystem<UISystem>().Update(camera);
@@ -317,8 +322,6 @@ void Game::Render() {
   if (isDebugMode) {
     registry->GetSystem<RenderBoxColliderSystem>().Update(renderer, camera);
   }
-
-  registry->GetSystem<AnimalBarSystem>().Update(renderer, camera);
   
   SDL_RenderPresent(renderer);
 }
@@ -337,6 +340,7 @@ void Game::RunScene() {
   audioManager->ClearAudio();
   itemManager->ClearItems();
   orderManager->ClearOrder();
+  scoreManager->ClearScore();
 
   // reset win condition
   this->buttonCount = 2;

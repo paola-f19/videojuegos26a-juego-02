@@ -18,6 +18,7 @@
 #include "../ItemManager/ItemManager.hpp"
 #include "../OrderManager/OrderManager.hpp"
 #include "../SceneManager/SceneManager.hpp"
+#include "../ScoreManager/ScoreManager.hpp"
 
 const int FPS = 30;
 const int MILLISECS_PER_FRAME = 1000 / FPS;
@@ -48,6 +49,7 @@ class Game {
     std::unique_ptr<OrderManager> orderManager;
     std::unique_ptr<Registry> registry;
     std::unique_ptr<SceneManager> sceneManager;
+    std::unique_ptr<ScoreManager> scoreManager;
     sol::state lua;
 
     bool isPaused = false;

@@ -110,6 +110,12 @@ class InventorySystem : public System {
 
       auto& item = Game::GetInstance().itemManager->GetItem(slot.itemId);
 
+      // DELIVER ITEMS
+      if(playerComponent.currentDeliveryZone.GetId() != -1) {
+        DeliverItem(slot);
+        return;
+      }
+
       // TOOLS
 
       if (item.id == "sickle") {
@@ -335,12 +341,6 @@ class InventorySystem : public System {
         return;
       }
 
-      // DELIVER ITEMS
-      if(playerComponent.currentDeliveryZone.GetId() != -1) {
-        DeliverItem(slot);
-        return;
-      }
-
       // remove item
       // if (item.consumable) {
       //   slot.itemId = "none";
@@ -404,11 +404,17 @@ class InventorySystem : public System {
       for (auto& requirement : order) {
         if(requirement.itemId == slot.itemId) {
           if(requirement.delivered < requirement.required) {
+            auto item = Game::GetInstance().itemManager
+              ->GetItem(requirement.itemId);
+
+            Game::GetInstance().scoreManager->AddScore(item.value);
+
             requirement.delivered++;
 
             slot.itemId = "none";
 
             std::cout << "Delivered " << requirement.itemId << std::endl;
+            std::cout << "Score: " << Game::GetInstance().scoreManager->GetScore() << std::endl;
             Game::GetInstance().audioManager->PlaySound("win");
           }
           break;
