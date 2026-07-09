@@ -14,7 +14,7 @@ scene = {
   -- Tabla de musica
   music = {
     [0] = 
-    {id = "bgMusic", filePath = "./assets/audio/AdventureBegin.ogg"}
+    {id = "bgMusic", filePath = "./assets/audio/Melancholia.ogg"}
   },
 
   -- Tabla de fuentes
